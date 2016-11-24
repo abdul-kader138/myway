@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.SoftwareUpdate" table="SOFTWARE_UPDATE" lazy="false">
+		<id name="id" column="SOU_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="pcName" column="SOU_PCNAME" type="string" not-null="false" />
+		<property name="ip" column="SOU_IP" type="string" not-null="false" />
+		<property name="oldVersion" column="SOU_OLD_VERSION" type="string" not-null="true" />
+		<property name="newVersion" column="SOU_NEW_VERSION" type="string" not-null="true" />
+		<property name="updateTime" column="SOU_UPDATETIME" type="timestamp" not-null="true" />
+		
+		<property name="logType" column="SOU_LOGTYPE" type="string" not-null="true" />
+		<property name="description" column="SOU_DESCRIPTION" type="string" not-null="false" />
+		
+		<many-to-one class="com.sotouch.myway.data.model.License" name="license">
+			<column name="LIC_ID" />
+		</many-to-one>
+		
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+		
+	</class>
+
+	<query name="select.softareupdate.by.license">
+		select su from SoftwareUpdate as su where su.license.id=?
+	</query>
+	
+</hibernate-mapping>

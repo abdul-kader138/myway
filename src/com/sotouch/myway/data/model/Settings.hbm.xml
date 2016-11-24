@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Settings" table="SETTINGS" lazy="false">
+		<id name="id" column="SET_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="clock" column="SET_CLOCK" type="integer" not-null="false" />
+		<property name="forceItemSizes" column="SET_FORCE_ITEM_SIZES" type="boolean" not-null="false" />
+		<property name="locationsWidth" column="SET_LOCATIONS_WIDTH" type="integer" not-null="false" />
+		<property name="locationsHeight" column="SET_LOCATIONS_HEIGHT" type="integer" not-null="false" />
+		<property name="otherItemsWidth" column="SET_OTHER_ITEMS_WIDTH" type="integer" not-null="false" />
+		<property name="otherItemsHeight" column="SET_OTHER_ITEMS_HEIGHT" type="integer" not-null="false" />
+		<property name="itemsKeepRatio" column="SET_ITEMS_KEEP_RATIO" type="boolean" not-null="false" />
+		<property name="inactivityDelay" column="SET_INACTIVITY_DELAY" type="integer" not-null="false" />
+		<property name="bannerPosition" column="SET_BANNER_POSITION" type="string" length="10" not-null="false" />
+		<property name="autoUploadContacts" column="SET_AUTO_UPLOAD_CONTACTS" type="boolean" not-null="false" />
+		<property name="hourUploadContacts" column="SET_HOUR_UPLOAD_CONTACTS" type="string" length="20" not-null="false" />
+		<property name="sendContactsEmail" column="SET_SEND_CONTACTS_EMAIL" type="boolean" not-null="false" />
+		<property name="emailSendContacts" column="SET_EMAIL_SEND_CONTACTS" type="string" not-null="false" />
+		<property name="autoUpdateProject" column="SET_AUTO_UPDATE_PROJECT" type="boolean" not-null="false" />
+		<property name="hourUpdateProject" column="SET_HOUR_UPDATE_PROJECT" type="string" length="20" not-null="false" />
+		<property name="displayWholeMap" column="SET_DISPLAY_WHOLE_MAP" type="boolean" not-null="false" />
+		<property name="allowWebPageNavigation" column="SET_ALLOW_WEB_PAGE_NAVIGATION" type="boolean" not-null="false" />
+		<property name="mixPanelKey" column="SET_MIX_PANEL_KEY" type="string" not-null="false" />
+
+		<property name="autoUpdateSoftware" column="SET_AUTO_UPDATE_SOFTWARE" type="boolean" not-null="false" />
+		<property name="hourUpdateSoftware" column="SET_HOUR_UPDATE_SOFTWARE" type="string" length="20" not-null="false" />
+		
+		<property name="itemsInZone" column="SET_ITEMS_IN_ZONE" type="boolean" not-null="false" />
+		<property name="showNameInsteadofIcon" column="SET_SHOW_NAME_INSTEADOF_ICON" type="boolean" not-null="false" />
+		
+		<property name="updateTryTimes" column="SET_UPDATE_TRY_TIMES" type="integer" not-null="false" />
+		
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.settings.by.project">
+		select s from Settings as s where s.project.id = ?
+	</query>
+</hibernate-mapping>

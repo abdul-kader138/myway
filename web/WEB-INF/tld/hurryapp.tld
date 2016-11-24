@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<description>HurryApp taglibs</description>
+	
+	<tag>
+		<name>menu</name>
+		<tag-class>org.hurryapp.quickstart.taglib.MenuTag</tag-class>
+		<description>JavaScript menu</description>
+		<body-content>empty</body-content>
+	</tag>
+
+	<tag>
+		<name>checkAccess</name>
+		<tag-class>org.hurryapp.quickstart.taglib.CheckAccessTag</tag-class>
+		<description>Check access to groupes or resources</description>
+		<attribute>
+			<name>groups</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>resources</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+</taglib>

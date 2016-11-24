@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.hurryapp.quickstart.data.model.Software" table="SOFTWARE" lazy="false">
+		<id name="id" column="SOF_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="vendor" column="SOF_VENDOR" type="string" not-null="false" />
+		<property name="version" column="SOF_VERSION" type="string" not-null="true" />
+		<property name="installPack" column="SOF_INSTALLPACK" type="string" not-null="true" />
+		<property name="uploadTime" column="SOF_UPLOAD_TIME" type="timestamp" not-null="false" />
+		<property name="modifyTime" column="SOF_MODIFY_TIME" type="timestamp" not-null="false" />
+		
+		<many-to-one class="org.hurryapp.quickstart.data.model.Utilisateur" name="user">
+			<column name="USER_ID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.softare.by.version">
+		select s from Software as s where s.version=?
+	</query>
+	
+</hibernate-mapping>

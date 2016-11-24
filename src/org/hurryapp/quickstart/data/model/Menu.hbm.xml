@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.hurryapp.quickstart.data.model.Menu" table="MENU" lazy="false">
+
+		<id name="id" column="MEN_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="libelle" column="MEN_LIBELLE" type="string" length="50" />
+
+		<property name="url" column="MEN_URL" type="string" length="100" />
+
+		<property name="index" column="MEN_INDEX" type="integer" />
+
+		<many-to-one
+			name="parent"
+			column="MEN_PARENT_ID"
+			class="org.hurryapp.quickstart.data.model.Menu"   
+			cascade="none"   
+			not-null="false">
+		</many-to-one>
+		
+		<many-to-one
+			name="ressource"
+			column="RSC_ID"
+			class="org.hurryapp.quickstart.data.model.Ressource"   
+			cascade="all"
+			not-null="false">
+		</many-to-one>
+
+		<list name="children" lazy="false" inverse="true" cascade="delete" >
+			<key column="MEN_PARENT_ID" />
+			<list-index column="MEN_INDEX"/>
+			<one-to-many class="org.hurryapp.quickstart.data.model.Menu" />
+		</list>
+
+	</class>
+</hibernate-mapping>

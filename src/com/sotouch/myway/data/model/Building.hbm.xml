@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Building" table="BUILDING" lazy="false">
+		<id name="id" column="BUI_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="BUI_NAME" type="string" length="100" not-null="true" />
+		<property name="index" column="BUI_INDEX" type="integer" not-null="true" />
+
+		<list name="buildingContents" table="BUILDING_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="BUI_ID" not-null="false" />
+            <list-index column="BUC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.BuildingContent" />
+        </list>
+        
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+
+        <list name="floors" table="FLOOR" lazy="true" cascade="delete">
+            <key column="BUI_ID" not-null="false" />
+            <list-index column="FLO_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.Floor" />
+        </list>
+	</class>
+
+	<query name="select.building.by.project">
+		select b from Building as b where b.project.id = ? order by b.index
+	</query>
+</hibernate-mapping>

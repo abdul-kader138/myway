@@ -1,0 +1,16 @@
+.ha-images-view-item {
+	float: left;
+	margin: 2px;
+	margin-right: 0;
+	padding: 3px;
+}
+.ha-images-view-item.ha-over {
+    border:1px solid #dddddd;
+    background: #efefef;
+	padding: 2px;
+}
+.ha-images-view-item.ha-selected {
+    border:1px solid #99bbe8;
+    background-color: #eff5fb;
+	padding: 2px;
+}

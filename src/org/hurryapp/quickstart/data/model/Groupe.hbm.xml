@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.hurryapp.quickstart.data.model.Groupe" table="PROFILE" lazy="false">
+
+		<id name="id" column="GRP_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="libelle" column="GRP_LIBELLE" type="string" length="30" not-null="true" />
+
+        <set name="ressources" table="PROFILE_2_RESOURCE" cascade="save-update" lazy="false">
+            <key column="GRP_ID" not-null="false" />
+            <many-to-many class="org.hurryapp.quickstart.data.model.Ressource" column="RSC_ID" />
+        </set>
+
+        <set name="utilisateurs" table="USER_2_PROFILE" cascade="none" lazy="true">
+            <key column="GRP_ID" not-null="false" />
+            <many-to-many class="org.hurryapp.quickstart.data.model.Utilisateur" column="USR_ID" />
+        </set>
+
+	</class>
+
+	<query name="select.groupe.by.libelle">
+		select g from Groupe as g where g.libelle = ?
+	</query>
+
+	<query name="select.groupe.by.ressource">
+		select g from Groupe as g join g.ressources as r where r.id = ? order by g.libelle
+	</query>
+
+	<query name="select.groupe.by.utilisateur">
+		select g from Groupe as g join g.utilisateurs as u where u.id = ? order by g.libelle
+	</query>
+
+	<query name="select.groupe.by.menu">
+		select g from Groupe as g join g.ressources as r where r.id = (select m.ressource.id from Menu as m where m.id = ?) order by g.libelle
+	</query>
+</hibernate-mapping>

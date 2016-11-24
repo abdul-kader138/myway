@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Project" table="PROJECT" lazy="false">
+		<id name="id" column="PRO_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="key" column="PRO_KEY" type="string" length="50" not-null="true" />
+		<property name="name" column="PRO_NAME" type="string" length="100" not-null="true" />
+		<property name="orderNumber" column="PRO_ORDER_NUMBER" type="string" length="100" not-null="false" />
+		<property name="salesforceLink" column="PRO_SALESFORCE_LINK" type="string" length="255" not-null="false" />
+		<property name="logo" column="PRO_LOGO" type="string" length="255" not-null="false" />
+		<property name="newsletterLogo" column="PRO_NEWSLETTER_LOGO" type="string" length="255" not-null="false" />
+		<property name="creditsImage" column="PRO_CREDITS_IMAGE" type="string" length="255" not-null="false" />
+		<property name="enabled" column="PRO_ENABLED" type="boolean" not-null="false" />
+		<property name="mapConfig" column="PRO_MAP_CONFIG" type="string" not-null="false" />
+		<property name="adsDateExpire" column="PRO_ADS_DATE_EXPIRE" type="date" not-null="false" />
+		<property name="dateExpire" column="PRO_DATE_EXPIRE" type="date" not-null="false" />
+		<property name="dateStart" column="PRO_DATE_START" type="date" not-null="false" />
+		
+		<many-to-one class="com.sotouch.myway.data.model.Company" name="company">
+			<column name="COM_ID" />
+		</many-to-one>
+
+        <set name="users" table="PROJECT_2_USER" cascade="none" lazy="true">
+            <key column="PRO_ID" not-null="true" />
+            <many-to-many class="org.hurryapp.quickstart.data.model.Utilisateur" column="USR_ID" />
+        </set>
+
+        <set name="items" table="ITEM" inverse="true" cascade="delete" lazy="true">
+            <key column="PRO_ID" not-null="false" />
+            <one-to-many class="com.sotouch.myway.data.model.Item"/>
+        </set>
+
+        <list name="projectContents" table="PROJECT_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="PRO_ID" not-null="false" />
+            <list-index column="PRC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.ProjectContent" />
+        </list>
+	</class>
+
+	<query name="select.project.by.key">
+		select p from Project as p where p.key = ?
+	</query>
+
+	<query name="select.project.by.company">
+		select p from Project as p where p.company.id = ?
+	</query>
+</hibernate-mapping>

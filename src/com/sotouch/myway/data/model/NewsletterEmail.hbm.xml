@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.NewsletterEmail" table="NEWSLETTER_EMAIL" lazy="false">
+		<id name="id" column="NEW_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="NEW_NAME" type="string" length="50" not-null="false" />
+		<property name="firstName" column="NEW_FIRST_NAME" type="string" length="50" not-null="false" />
+		<property name="email" column="NEW_EMAIL" type="string" length="100" not-null="true" />
+		<property name="city" column="NEW_CITY" type="string" length="50" not-null="false" />
+		<property name="gender" column="NEW_GENDER" type="string" length="1" not-null="false" />
+		<property name="categories" column="NEW_CATEGORIES" type="string" length="500" not-null="false" />
+		<property name="items" column="NEW_ITEMS" type="string" length="500" not-null="false" />
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+		<many-to-one class="com.sotouch.myway.data.model.License" name="license">
+			<column name="LIC_ID" />
+		</many-to-one>
+		
+	</class>
+
+	<query name="select.newsLetterEmail.by.project">
+		select n from NewsletterEmail as n where n.project.id = ? order by n.name, n.firstName
+	</query>
+
+	<query name="select.newsLetterEmail.by.email">
+		select n from NewsletterEmail as n where n.email = ?
+	</query>
+	
+	<query name="count.newsLetterEmail.by.email">
+		select count(n) from NewsletterEmail as n where n.project.id = ?
+	</query>
+</hibernate-mapping>

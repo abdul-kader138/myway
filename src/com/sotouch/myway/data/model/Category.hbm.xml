@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Category" table="CATEGORY" lazy="false">
+		<id name="id" column="CAT_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="CAT_NAME" type="string" length="100" not-null="true" />
+		<property name="color" column="CAT_COLOR" type="string" length="10" not-null="false" />
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+
+        <list name="categoryContents" table="CATEGORY_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="CAT_ID" not-null="false" />
+            <list-index column="CAC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.CategoryContent" />
+        </list>
+
+        <set name="subCategories" table="SUB_CATEGORY" lazy="true" cascade="delete">
+            <key column="CAT_ID" not-null="false" />
+            <one-to-many class="com.sotouch.myway.data.model.SubCategory" />
+        </set>
+	</class>
+
+	<query name="select.category.by.project">
+		select c from Category as c where c.project.id = ? order by c.name
+	</query>
+</hibernate-mapping>

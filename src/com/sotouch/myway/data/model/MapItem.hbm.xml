@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.MapItem" table="MAP_ITEM" lazy="false">
+		<id name="id" column="ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="type" column="TYPE" type="string"  />
+		<property name="itemId" column="ITEMID" type="string"  />
+		<property name="position" column="POSITION" type="string"  />
+		<property name="shape" column="SHAPE" type="string"  />
+		<property name="containitems" column="CONTAINITEMS" type="string"  />
+		<property name="zonebelongto" column="ZONEBELONGTO" type="string"  />
+		<property name="paths" column="PATHS" type="string"  />
+								
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PROJECTID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.mapItem.by.project">
+		select i from MapItem as i where i.project.id = ?
+	</query>
+	<query name="select.mapItem.by.itemId">
+		select i from MapItem as i where i.itemId = ?
+	</query>
+	
+</hibernate-mapping>

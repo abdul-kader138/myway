@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config/>
+
+	<import resource="hibernate.cfg.xml" />
+
+	<!--====================================================================-->
+	<!-- PERSISTENCE DEFINITIONS                                            -->
+	<!--====================================================================-->
+
+	<!--DataSource Definition -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/myway?useUnicode=true&amp;characterEncoding=UTF-8</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>root</value>
+		</property>
+
+		<!--
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/myway-beta?useUnicode=true&amp;characterEncoding=UTF-8</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>sotouchsooch</value>
+		</property>
+		-->
+	</bean>
+
+	<!--Hibernate SessionFactory Definition -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!--
+		<property name="configLocation" value="file:C:\dev\workspace 3.2\myBankAccounts\WebContent\WEB-INF\hibernate-config.xml"/>
+		-->
+		<property name="mappingResources">
+			<list>
+				<value>org/hurryapp/quickstart/data/model/Utilisateur.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/Groupe.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/Ressource.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/Device.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/Software.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/Menu.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/config/ConfigDomain.hbm.xml</value>
+				<value>org/hurryapp/quickstart/data/model/config/ConfigParameter.hbm.xml</value>
+
+				<value>com/sotouch/myway/data/model/Company.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Project.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/ProjectContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Building.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/BuildingContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Zone.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/ZoneContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Floor.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/FloorContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Category.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/CategoryContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/SubCategory.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/SubCategoryContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Language.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Wording.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/ItemType.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/IconGroup.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Icon.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Item.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/ItemContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/ItemMap.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Path.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Event.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/EventContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Promotion.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/PromotionContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/NewsletterEmail.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/License.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/SoftwareUpdate.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/LicenseContent.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Playlist.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Ad.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Settings.hbm.xml</value>
+				<value>com/sotouch/myway/data/model/Theme.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+			</props>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<!--Spring Data Access Exception Translator Defintion -->
+	<bean id="jdbcExceptionTranslator" class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<!--Hibernate Template Defintion -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+		<property name="jdbcExceptionTranslator">
+			<ref bean="jdbcExceptionTranslator" />
+		</property>
+	</bean>
+
+	<!--Hibernate Transaction Manager Definition -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--
+	<tx:advice id="serviceTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+		  <tx:method name="find*" propagation="REQUIRED" read-only="true" />
+		  <tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<tx:advice id="daoTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+		  <tx:method name="find*" propagation="REQUIRED" read-only="true" />
+		  <tx:method name="*" propagation="MANDATORY" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="serviceMethods" expression="execution(* org.hurryapp.*.service.*Service.*(..))" />
+		<aop:advisor advice-ref="serviceTxAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+	<aop:config>
+		<aop:pointcut id="daoMethods" expression="execution(* org.hurryapp.*.data.dao.*Dao*.*(..))" />
+		<aop:advisor advice-ref="daoTxAdvice" pointcut-ref="daoMethods" />
+	</aop:config>
+	-->
+
+	<!--====================================================================-->
+	<!-- DAO DEFINITIONS                                                    -->
+	<!--====================================================================-->
+	
+	<!-- DAO template -->
+	<bean id="daoTemplate" abstract="true">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	
+	<bean id="utilisateurDao" class="org.hurryapp.quickstart.data.dao.UtilisateurDAO" parent="daoTemplate"/>
+	
+	<bean id="groupeDao" class="org.hurryapp.quickstart.data.dao.GroupeDAO" parent="daoTemplate"/>
+	
+	<bean id="ressourceDao" class="org.hurryapp.quickstart.data.dao.RessourceDAO" parent="daoTemplate"/>
+	
+	<bean id="menuDao" class="org.hurryapp.quickstart.data.dao.MenuDAO" parent="daoTemplate"/>
+	
+	<bean id="configDomainDao" class="org.hurryapp.quickstart.data.dao.config.ConfigDomainDAO" parent="daoTemplate"/>
+	
+	<bean id="configParameterDao" class="org.hurryapp.quickstart.data.dao.config.ConfigParameterDAO" parent="daoTemplate"/>
+
+	<!--====================================================================-->
+	<!-- SERVICE DEFINITIONS                                                -->
+	<!--====================================================================-->
+	
+	<!-- Transactional proxy template -->
+	<bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref local="transactionManager" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="init*">PROPAGATION_REQUIRED</prop>
+				<prop key="export*">PROPAGATION_REQUIRED</prop>
+				<prop key="transform*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="utilisateurServiceTarget" class="org.hurryapp.quickstart.service.utilisateur.UtilisateurService">
+		<property name="entityDao">
+			<ref local="utilisateurDao" />
+		</property>
+	</bean>
+	<!-- Transactional proxy for the service -->
+	<bean id="utilisateurService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="utilisateurServiceTarget" />
+		</property>
+	</bean>
+	
+	<bean id="groupeServiceTarget" class="org.hurryapp.quickstart.service.groupe.GroupeService">
+		<property name="entityDao">
+			<ref local="groupeDao" />
+		</property>
+	</bean>
+	<!-- Transactional proxy for the service -->
+	<bean id="groupeService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="groupeServiceTarget" />
+		</property>
+	</bean>
+	
+	<bean id="ressourceServiceTarget" class="org.hurryapp.quickstart.service.ressource.RessourceService">
+		<property name="entityDao">
+			<ref local="ressourceDao" />
+		</property>
+	</bean>
+	<!-- Transactional proxy for the service -->
+	<bean id="ressourceService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="ressourceServiceTarget" />
+		</property>
+	</bean>
+	
+	<bean id="menuServiceTarget" class="org.hurryapp.quickstart.service.menu.MenuService">
+		<property name="entityDao">
+			<ref local="menuDao" />
+		</property>
+	</bean>
+	<!-- Transactional proxy for the service -->
+	<bean id="menuService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="menuServiceTarget" />
+		</property>
+	</bean>
+	
+	<bean id="configDomainServiceTarget" class="org.hurryapp.quickstart.service.config.ConfigDomainService">
+		<property name="entityDao">
+			<ref local="configDomainDao" />
+		</property>
+	</bean>
+	<!-- Transactional proxy for the service -->
+	<bean id="configDomainService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="configDomainServiceTarget" />
+		</property>
+	</bean>
+	
+	<bean id="configParameterServiceTarget" class="org.hurryapp.quickstart.service.config.ConfigParameterService">
+		<property name="entityDao">
+			<ref local="configParameterDao" />
+		</property>
+	</bean>
+	<!-- Transactional proxy for the service -->
+	<bean id="configParameterService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="configParameterServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="mailService" class="org.hurryapp.quickstart.service.mail.MailService">
+	</bean>
+	
+	<!--====================================================================-->
+	<!-- ACTION DEFINITIONS                                                 -->
+	<!--====================================================================-->
+	
+    <bean id="loginAction" scope="prototype" class="org.hurryapp.quickstart.view.action.login.LoginAction">
+    </bean>
+
+    <bean id="signinAction" scope="prototype" class="org.hurryapp.quickstart.view.action.signin.SignInAction">
+		<property name="entityService">
+			<ref bean="utilisateurService" />
+		</property>
+	</bean>
+	
+    <bean id="utilisateurAction" scope="prototype" class="org.hurryapp.quickstart.view.action.utilisateur.UtilisateurAction">
+		<property name="entityService">
+			<ref bean="utilisateurService" />
+		</property>
+	</bean>
+	
+    <bean id="groupeAction" scope="prototype" class="org.hurryapp.quickstart.view.action.groupe.GroupeAction">
+		<property name="entityService">
+			<ref bean="groupeService" />
+		</property>
+	</bean>
+	
+    <bean id="ressourceAction" scope="prototype" class="org.hurryapp.quickstart.view.action.ressource.RessourceAction">
+		<property name="entityService">
+			<ref bean="ressourceService" />
+		</property>
+	</bean>
+	
+    <bean id="menuAction" scope="prototype" class="org.hurryapp.quickstart.view.action.menu.MenuAction">
+		<property name="entityService">
+			<ref bean="menuService" />
+		</property>
+	</bean>
+	
+    <bean id="configDomainAction" scope="prototype" class="org.hurryapp.quickstart.view.action.config.ConfigDomainAction">
+		<property name="entityService">
+			<ref bean="configDomainService" />
+		</property>
+	</bean>
+	
+    <bean id="configParameterAction" scope="prototype" class="org.hurryapp.quickstart.view.action.config.ConfigParameterAction">
+		<property name="entityService">
+			<ref bean="configParameterService" />
+		</property>
+	</bean>
+    
+	<!--====================================================================-->
+	<!-- COMPANIES                                                          -->
+	<!--====================================================================-->
+	<bean id="companyDao" class="com.sotouch.myway.data.dao.CompanyDAO" parent="daoTemplate"/>
+
+	<bean id="companyServiceTarget" class="com.sotouch.myway.service.company.CompanyService">
+		<property name="entityDao">
+			<ref local="companyDao" />
+		</property>
+	</bean>
+	<bean id="companyService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="companyServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="companyAction" scope="prototype" class="com.sotouch.myway.view.action.company.CompanyAction">
+		<property name="entityService">
+			<ref bean="companyService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- PROJECTS                                                           -->
+	<!--====================================================================-->
+	<bean id="projectDao" class="com.sotouch.myway.data.dao.ProjectDAO" parent="daoTemplate"/>
+
+	<bean id="projectServiceTarget" class="com.sotouch.myway.service.project.ProjectService">
+		<property name="entityDao">
+			<ref local="projectDao" />
+		</property>
+	</bean>
+	<bean id="projectService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="projectServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="projectAction" scope="prototype" class="com.sotouch.myway.view.action.project.ProjectAction">
+		<property name="entityService">
+			<ref bean="projectService" />
+		</property>
+	</bean>
+	
+	<!--====================================================================-->
+	<!-- UPDATE                                                           -->
+	<!--====================================================================-->
+	
+	<bean id="updateAction" scope="prototype" class="com.sotouch.myway.view.action.update.UpdateAction">
+    </bean>
+    
+    <!--====================================================================-->
+	<!-- CERTIFICATE                                                           -->
+	<!--====================================================================-->
+	
+	<bean id="certificateAction" scope="prototype" class="org.hurryapp.quickstart.view.action.certificate.CertificateAction">
+    </bean>
+
+	<!--====================================================================-->
+	<!-- BUILDINGS                                                            -->
+	<!--====================================================================-->
+	<bean id="buildingDao" class="com.sotouch.myway.data.dao.BuildingDAO" parent="daoTemplate"/>
+
+	<bean id="buildingServiceTarget" class="com.sotouch.myway.service.building.BuildingService">
+		<property name="entityDao">
+			<ref local="buildingDao" />
+		</property>
+	</bean>
+	<bean id="buildingService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="buildingServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="buildingAction" scope="prototype" class="com.sotouch.myway.view.action.building.BuildingAction">
+		<property name="entityService">
+			<ref bean="buildingService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- FLOORS                                                            -->
+	<!--====================================================================-->
+	<bean id="floorDao" class="com.sotouch.myway.data.dao.FloorDAO" parent="daoTemplate"/>
+
+	<bean id="floorServiceTarget" class="com.sotouch.myway.service.building.FloorService">
+		<property name="entityDao">
+			<ref local="floorDao" />
+		</property>
+	</bean>
+	<bean id="floorService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="floorServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="floorAction" scope="prototype" class="com.sotouch.myway.view.action.building.FloorAction">
+		<property name="entityService">
+			<ref bean="floorService" />
+		</property>
+	</bean>
+	
+	<!--====================================================================-->
+	<!-- ZONES                                                            -->
+	<!--====================================================================-->
+	<bean id="zoneDao" class="com.sotouch.myway.data.dao.ZoneDAO" parent="daoTemplate"/>
+
+	<bean id="zoneServiceTarget" class="com.sotouch.myway.service.zone.ZoneService">
+		<property name="entityDao">
+			<ref local="zoneDao" />
+		</property>
+	</bean>
+	<bean id="zoneService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="zoneServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="zoneAction" scope="prototype" class="com.sotouch.myway.view.action.zone.ZoneAction">
+		<property name="entityService">
+			<ref bean="zoneService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- CATEGORIES                                                         -->
+	<!--====================================================================-->
+	<bean id="categoryDao" class="com.sotouch.myway.data.dao.CategoryDAO" parent="daoTemplate"/>
+
+	<bean id="categoryServiceTarget" class="com.sotouch.myway.service.category.CategoryService">
+		<property name="entityDao">
+			<ref local="categoryDao" />
+		</property>
+	</bean>
+	<bean id="categoryService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="categoryServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="categoryAction" scope="prototype" class="com.sotouch.myway.view.action.category.CategoryAction">
+		<property name="entityService">
+			<ref bean="categoryService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- SUB CATEGORIES                                                     -->
+	<!--====================================================================-->
+	<bean id="subCategoryDao" class="com.sotouch.myway.data.dao.SubCategoryDAO" parent="daoTemplate"/>
+
+	<bean id="subCategoryServiceTarget" class="com.sotouch.myway.service.category.SubCategoryService">
+		<property name="entityDao">
+			<ref local="subCategoryDao" />
+		</property>
+	</bean>
+	<bean id="subCategoryService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="subCategoryServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="subCategoryAction" scope="prototype" class="com.sotouch.myway.view.action.category.SubCategoryAction">
+		<property name="entityService">
+			<ref bean="subCategoryService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- LANGUAGES                                                          -->
+	<!--====================================================================-->
+	<bean id="languageDao" class="com.sotouch.myway.data.dao.LanguageDAO" parent="daoTemplate"/>
+
+	<bean id="languageServiceTarget" class="com.sotouch.myway.service.language.LanguageService">
+		<property name="entityDao">
+			<ref local="languageDao" />
+		</property>
+	</bean>
+	<bean id="languageService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="languageServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="languageAction" scope="prototype" class="com.sotouch.myway.view.action.language.LanguageAction">
+		<property name="entityService">
+			<ref bean="languageService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- WORDINGS                                                            -->
+	<!--====================================================================-->
+	<bean id="wordingDao" class="com.sotouch.myway.data.dao.WordingDAO" parent="daoTemplate"/>
+
+	<bean id="wordingServiceTarget" class="com.sotouch.myway.service.language.WordingService">
+		<property name="entityDao">
+			<ref local="wordingDao" />
+		</property>
+	</bean>
+	<bean id="wordingService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="wordingServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="wordingAction" scope="prototype" class="com.sotouch.myway.view.action.language.WordingAction">
+		<property name="entityService">
+			<ref bean="wordingService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- ITEM TYPES                                                         -->
+	<!--====================================================================-->
+	<bean id="itemTypeDao" class="com.sotouch.myway.data.dao.ItemTypeDAO" parent="daoTemplate"/>
+
+	<bean id="itemTypeServiceTarget" class="com.sotouch.myway.service.itemType.ItemTypeService">
+		<property name="entityDao">
+			<ref local="itemTypeDao" />
+		</property>
+	</bean>
+	<bean id="itemTypeService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="itemTypeServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="itemTypeAction" scope="prototype" class="com.sotouch.myway.view.action.itemType.ItemTypeAction">
+		<property name="entityService">
+			<ref bean="itemTypeService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- ICON GROUPS                                                        -->
+	<!--====================================================================-->
+	<bean id="iconGroupDao" class="com.sotouch.myway.data.dao.IconGroupDAO" parent="daoTemplate"/>
+
+	<bean id="iconGroupServiceTarget" class="com.sotouch.myway.service.iconGroup.IconGroupService">
+		<property name="entityDao">
+			<ref local="iconGroupDao" />
+		</property>
+	</bean>
+	<bean id="iconGroupService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="iconGroupServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="iconGroupAction" scope="prototype" class="com.sotouch.myway.view.action.iconGroup.IconGroupAction">
+		<property name="entityService">
+			<ref bean="iconGroupService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- ICONS                                                              -->
+	<!--====================================================================-->
+	<bean id="iconDao" class="com.sotouch.myway.data.dao.IconDAO" parent="daoTemplate"/>
+
+	<bean id="iconServiceTarget" class="com.sotouch.myway.service.icon.IconService">
+		<property name="entityDao">
+			<ref local="iconDao" />
+		</property>
+	</bean>
+	<bean id="iconService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="iconServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="iconAction" scope="prototype" class="com.sotouch.myway.view.action.icon.IconAction">
+		<property name="entityService">
+			<ref bean="iconService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- ITEMS                                                              -->
+	<!--====================================================================-->
+	<bean id="itemDao" class="com.sotouch.myway.data.dao.ItemDAO" parent="daoTemplate"/>
+
+	<bean id="itemServiceTarget" class="com.sotouch.myway.service.item.ItemService">
+		<property name="entityDao">
+			<ref local="itemDao" />
+		</property>
+	</bean>
+	<bean id="itemService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="itemServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="itemAction" scope="prototype" class="com.sotouch.myway.view.action.item.ItemAction">
+		<property name="entityService">
+			<ref bean="itemService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- ITEM MAPS                                                          -->
+	<!--====================================================================-->
+	<bean id="itemMapDao" class="com.sotouch.myway.data.dao.ItemMapDAO" parent="daoTemplate"/>
+
+	<!--====================================================================-->
+	<!-- PATHS                                                              -->
+	<!--====================================================================-->
+	<bean id="pathDao" class="com.sotouch.myway.data.dao.PathDAO" parent="daoTemplate"/>
+
+	<!--====================================================================-->
+	<!-- IMAGE GALERY                                                       -->
+	<!--====================================================================-->
+	<bean id="imageGalleryAction" scope="prototype" class="com.sotouch.myway.view.action.imagegalery.ImageGalleryAction">
+	</bean>
+
+	<!--====================================================================-->
+	<!-- EVENTS                                                             -->
+	<!--====================================================================-->
+	<bean id="eventDao" class="com.sotouch.myway.data.dao.EventDAO" parent="daoTemplate"/>
+
+	<bean id="eventServiceTarget" class="com.sotouch.myway.service.event.EventService">
+		<property name="entityDao">
+			<ref local="eventDao" />
+		</property>
+	</bean>
+	<bean id="eventService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="eventServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="eventAction" scope="prototype" class="com.sotouch.myway.view.action.event.EventAction">
+		<property name="entityService">
+			<ref bean="eventService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- PROMOTIONS                                                         -->
+	<!--====================================================================-->
+	<bean id="promotionDao" class="com.sotouch.myway.data.dao.PromotionDAO" parent="daoTemplate"/>
+
+	<bean id="promotionServiceTarget" class="com.sotouch.myway.service.promotion.PromotionService">
+		<property name="entityDao">
+			<ref local="promotionDao" />
+		</property>
+	</bean>
+	<bean id="promotionService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="promotionServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="promotionAction" scope="prototype" class="com.sotouch.myway.view.action.promotion.PromotionAction">
+		<property name="entityService">
+			<ref bean="promotionService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- NEWSLETTER EMAILS                                                  -->
+	<!--====================================================================-->
+	<bean id="newsletterEmailDao" class="com.sotouch.myway.data.dao.NewsletterEmailDAO" parent="daoTemplate"/>
+
+	<bean id="newsletterEmailServiceTarget" class="com.sotouch.myway.service.newsletterEmail.NewsletterEmailService">
+		<property name="entityDao">
+			<ref local="newsletterEmailDao" />
+		</property>
+	</bean>
+	<bean id="newsletterEmailService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="newsletterEmailServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="newsletterEmailAction" scope="prototype" class="com.sotouch.myway.view.action.newsletterEmail.NewsletterEmailAction">
+		<property name="entityService">
+			<ref bean="newsletterEmailService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- LICENSES                                                            -->
+	<!--====================================================================-->
+	<bean id="licenseDao" class="com.sotouch.myway.data.dao.LicenseDAO" parent="daoTemplate"/>
+
+	<bean id="licenseServiceTarget" class="com.sotouch.myway.service.license.LicenseService">
+		<property name="entityDao">
+			<ref local="licenseDao" />
+		</property>
+	</bean>
+	<bean id="licenseService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="licenseServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="licenseAction" scope="prototype" class="com.sotouch.myway.view.action.license.LicenseAction">
+		<property name="entityService">
+			<ref bean="licenseService" />
+		</property>
+	</bean>
+	
+	<!--====================================================================-->
+	<!-- Software Update                                                            -->
+	<!--====================================================================-->
+	<bean id="softwareUpdateDao" class="com.sotouch.myway.data.dao.SoftwareUpdateDAO" parent="daoTemplate"/>
+
+	<bean id="softwareUpdateServiceTarget" class="com.sotouch.myway.service.softwareUpdate.SoftwareUpdateService">
+		<property name="entityDao">
+			<ref local="softwareUpdateDao" />
+		</property>
+	</bean>
+	<bean id="softwareUpdateService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="softwareUpdateServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="softwareUpdateAction" scope="prototype" class="com.sotouch.myway.view.action.softwareUpdate.SoftwareUpdateAction">
+		<property name="entityService">
+			<ref bean="softwareUpdateService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- PLAYLISTS                                                          -->
+	<!--====================================================================-->
+	<bean id="playlistDao" class="com.sotouch.myway.data.dao.PlaylistDAO" parent="daoTemplate"/>
+
+	<bean id="playlistServiceTarget" class="com.sotouch.myway.service.ad.PlaylistService">
+		<property name="entityDao">
+			<ref local="playlistDao" />
+		</property>
+	</bean>
+	<bean id="playlistService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="playlistServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="playlistAction" scope="prototype" class="com.sotouch.myway.view.action.ad.PlaylistAction">
+		<property name="entityService">
+			<ref bean="playlistService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- ADS                                                                -->
+	<!--====================================================================-->
+	<bean id="adDao" class="com.sotouch.myway.data.dao.AdDAO" parent="daoTemplate"/>
+
+	<bean id="adServiceTarget" class="com.sotouch.myway.service.ad.AdService">
+		<property name="entityDao">
+			<ref local="adDao" />
+		</property>
+	</bean>
+	<bean id="adService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="adServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="adAction" scope="prototype" class="com.sotouch.myway.view.action.ad.AdAction">
+		<property name="entityService">
+			<ref bean="adService" />
+		</property>
+    </bean>
+
+
+    <!--====================================================================-->
+	<!-- DEVICES                                                                -->
+	<!--====================================================================-->
+	<bean id="deviceDao" class="org.hurryapp.quickstart.data.dao.DeviceDAO" parent="daoTemplate"/>
+
+	<bean id="deviceServiceTarget" class="org.hurryapp.quickstart.service.device.DeviceService">
+		<property name="entityDao">
+			<ref local="deviceDao" />
+		</property>
+	</bean>
+	<bean id="deviceService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="deviceServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="deviceAction" scope="prototype" class="org.hurryapp.quickstart.view.action.device.DeviceAction">
+		<property name="entityService">
+			<ref bean="deviceService" />
+		</property>
+    </bean>
+    
+     <!--====================================================================-->
+	<!-- SOFTWARES                                                                -->
+	<!--====================================================================-->
+	<bean id="softwareDao" class="org.hurryapp.quickstart.data.dao.SoftwareDAO" parent="daoTemplate"/>
+
+	<bean id="softwareServiceTarget" class="org.hurryapp.quickstart.service.software.SoftwareService">
+		<property name="entityDao">
+			<ref local="softwareDao" />
+		</property>
+	</bean>
+	<bean id="softwareService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="softwareServiceTarget" />
+		</property>
+	</bean>
+	<bean id="softwareAction" scope="prototype" class="org.hurryapp.quickstart.view.action.software.SoftwareAction">
+		<property name="entityService">
+			<ref bean="softwareService" />
+		</property>
+    </bean>
+
+	<!--====================================================================-->
+	<!-- SETTINGSS                                                          -->
+	<!--====================================================================-->
+	<bean id="settingsDao" class="com.sotouch.myway.data.dao.SettingsDAO" parent="daoTemplate"/>
+
+	<bean id="settingsServiceTarget" class="com.sotouch.myway.service.settings.SettingsService">
+		<property name="entityDao">
+			<ref local="settingsDao" />
+		</property>
+	</bean>
+	<bean id="settingsService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="settingsServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="settingsAction" scope="prototype" class="com.sotouch.myway.view.action.settings.SettingsAction">
+		<property name="entityService">
+			<ref bean="settingsService" />
+		</property>
+	</bean>
+	
+	<!--====================================================================-->
+	<!-- THEME                                                              -->
+	<!--====================================================================-->
+	<bean id="themeDao" class="com.sotouch.myway.data.dao.ThemeDAO" parent="daoTemplate"/>
+
+	<bean id="themeServiceTarget" class="com.sotouch.myway.service.theme.ThemeService">
+		<property name="entityDao">
+			<ref local="themeDao" />
+		</property>
+	</bean>
+	<bean id="themeService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="themeServiceTarget" />
+		</property>
+	</bean>
+
+	<bean id="themeAction" scope="prototype" class="com.sotouch.myway.view.action.theme.ThemeAction">
+		<property name="entityService">
+			<ref bean="themeService" />
+		</property>
+	</bean>
+
+	<!--====================================================================-->
+	<!-- MAP WEB SERVICE                                                    -->
+	<!--====================================================================-->
+	<bean id="mapServiceTarget" class="com.sotouch.myway.service.map.MapService" >
+		<property name="encrypt" value="false" />
+	</bean>
+	
+	<bean id="mapService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="mapServiceTarget" />
+		</property>
+	</bean>
+	
+	<bean id="mapAction" scope="prototype" class="com.sotouch.myway.view.action.map.MapAction"/>
+
+	<!--====================================================================-->
+	<!-- ACTIVATION WEB SERVICE                                             -->
+	<!--====================================================================-->
+	<bean id="activationServiceTarget" class="com.sotouch.myway.service.activation.ActivationService"/>
+	<bean id="activationService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="activationServiceTarget" />
+		</property>
+	</bean>
+	<bean id="activationAction" scope="prototype" class="com.sotouch.myway.view.action.activation.ActivationAction"/>
+	
+	<!--====================================================================-->
+	<!-- TRANSLATION SERVICE                                             -->
+	<!--====================================================================-->
+	<bean id="translationServiceTarget" class="com.sotouch.myway.service.translation.TranslationService"/>
+	<bean id="translationService" parent="txProxyTemplate">
+		<property name="target">
+			<ref local="translationServiceTarget" />
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Language" table="LANGUAGE" lazy="false">
+		<id name="id" column="LAN_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="LAN_NAME" type="string" length="100" not-null="true" />
+		<property name="flag" column="LAN_FLAG" type="string" length="255" not-null="false" />
+		<property name="code" column="LAN_CODE" type="string" length="10" not-null="true" />
+		<property name="index" column="LAN_INDEX" type="integer" not-null="false" />
+		<property name="defaultLanguage" column="LAN_DEFAULT" type="boolean" not-null="false" />
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.language.by.project">
+		select l from Language as l where l.project.id = ? order by l.index
+	</query>
+	
+	<query name="count.language.by.project">
+		select count(l) from Language as l where l.project.id = ? order by l.index
+	</query>
+
+	<query name="select.language.default.by.project">
+		select l from Language as l where l.project.id = ? and l.defaultLanguage = 1
+	</query>
+
+	<query name="select.language.by.flag">
+		select l from Language as l where l.flag = ? and l.project is not null order by l.index
+	</query>
+
+	<query name="select.language.templates">
+		select l from Language as l where l.project is null order by l.name
+	</query>
+</hibernate-mapping>

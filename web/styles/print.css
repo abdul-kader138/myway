@@ -1,0 +1,46 @@
+body * {
+	font-family:arial, verdana, sans-serif;
+	font-size:12px;
+}
+
+body {
+	padding:10px;
+	margin:0px;
+	text-align:left;
+}
+
+body div {
+}
+
+.print-site {
+	font-weight: bold;
+}
+.print-source {
+}
+.print-header-total {
+	font-weight: bold;
+}
+.print-total {
+	font-weight: bold;
+}
+.print-header-sous-total {
+	padding-left: 20px;
+	color: #808182;
+}
+.print-sous-total {
+	color: #808182;
+}
+
+.print-detail-div {
+	border: 1px solid #808182;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.print-detail-header {
+	font-weight: bold;
+	border-bottom: 1px solid #808182;
+}
+
+.print-cell-solid {
+	border: 1px solid #808182;
+}

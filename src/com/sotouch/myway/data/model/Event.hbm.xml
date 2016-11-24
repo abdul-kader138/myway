@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Event" table="EVENT" lazy="false">
+		<id name="id" column="EVE_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="EVE_NAME" type="string" length="100" not-null="false" />
+		<property name="start" column="EVE_START" type="timestamp" not-null="false" />
+		<property name="end" column="EVE_END" type="timestamp" not-null="false" />
+		<property name="image" column="EVE_IMAGE" type="string" length="255" not-null="false" />
+
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Item" name="item">
+			<column name="ITE_ID" />
+		</many-to-one>
+
+        <list name="eventContents" table="EVENT_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="EVE_ID" not-null="false" />
+            <list-index column="EVC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.EventContent" />
+        </list>
+	</class>
+
+	<query name="select.event.by.project">
+		select e from Event as e where e.item.project.id = ?
+	</query>
+	
+	<query name="count.event.by.project">
+		select count(e) from Event as e where e.item.project.id = ?
+	</query>
+</hibernate-mapping>

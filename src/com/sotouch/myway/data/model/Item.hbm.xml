@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Item" table="ITEM" lazy="false">
+		<id name="id" column="ITE_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="ITE_NAME" type="string" length="100" not-null="false" />
+		<property name="logo" column="ITE_LOGO" type="string" length="255" not-null="false" />
+		<property name="address" column="ITE_ADDRESS" type="string" length="300" not-null="false" />
+		<property name="phoneNumber" column="ITE_PHONE_NUMBER" type="string" length="30" not-null="false" />
+		<property name="email" column="ITE_EMAIL" type="string" length="50" not-null="false" />
+		<property name="hourBegin" column="ITE_HOUR_BEGIN" type="time" not-null="false" />
+		<property name="hourEnd" column="ITE_HOUR_END" type="time" not-null="false" />
+		<property name="photos" column="ITE_PHOTOS" type="string" length="2000" not-null="false" />
+		<property name="photosDir" column="ITE_PHOTOS_DIR" type="string" length="30" not-null="false" />
+		<property name="disabledAccess" column="ITE_DISABLED_ACCESS" type="boolean" not-null="false" />
+		<property name="type" column="ITE_TYPE" type="integer" not-null="false" />
+
+		<many-to-one class="com.sotouch.myway.data.model.ItemType" name="itemType">
+			<column name="ITT_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Category" name="category">
+			<column name="CAT_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.SubCategory" name="subCategory">
+			<column name="SUB_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Zone" name="zone">
+			<column name="ZON_ID" />
+		</many-to-one>
+		
+		<many-to-one class="com.sotouch.myway.data.model.Icon" name="icon">
+			<column name="ICO_ID" />
+		</many-to-one>
+
+        <list name="itemContents" table="ITEM_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="ITE_ID" not-null="false" />
+            <list-index column="ITC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.ItemContent" />
+        </list>
+
+        <set name="events" table="EVENT" lazy="true" inverse="true" cascade="delete">
+            <key column="ITE_ID" not-null="false" />
+            <one-to-many class="com.sotouch.myway.data.model.Event" />
+        </set>
+
+        <set name="promotions" table="PROMOTION" lazy="true" inverse="true" cascade="delete">
+            <key column="ITE_ID" not-null="false" />
+            <one-to-many class="com.sotouch.myway.data.model.Promotion" />
+        </set>
+
+        <set name="itemMaps" table="ITEM_MAP" lazy="true" inverse="true" cascade="delete">
+            <key column="ITE_ID" not-null="false" />
+            <one-to-many class="com.sotouch.myway.data.model.ItemMap" />
+        </set>
+	</class>
+
+	<query name="select.item.by.project">
+		select i from Item as i where i.project.id = ? and i.itemType.id != ? order by i.name
+	</query>
+
+	<query name="select.item.by.project.and.type">
+		select i from Item as i where i.project.id = ? and i.itemType.id = ? order by i.name
+	</query>
+
+	<query name="select.item.by.category">
+		select i from Item as i where i.category.id = ?
+	</query>
+
+	<query name="select.item.by.subCategory">
+		select i from Item as i where i.subCategory.id = ?
+	</query>
+	
+	<query name="count.item.by.project">
+		select count(i) from Item as i where i.project.id = ?
+	</query>
+	
+	<query name="select.item.by.project.and.no.zone">
+		select i from Item as i where i.project.id = ? and i.zone.id is null and i.itemType.id = 1 order by i.name
+	</query>
+	
+	<query name="select.item.by.zone">
+		select i from Item as i where i.zone.id = ? order by i.name
+	</query>
+</hibernate-mapping>

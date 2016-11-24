@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Theme" table="THEME" lazy="false">
+		<id name="id" column="THE_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="leftPanel" column="THE_LEFT_PANEL" type="string" not-null="false" />
+		<property name="landscapeBackground" column="THE_LANDSCAPE_BACKGROUND" type="string" not-null="false" />
+		<property name="landscapeLightFontColor" column="THE_LANDSCAPE_LIGHT_FONT_COLOR" type="string" not-null="false" />
+		<property name="landscapeTextFontColor" column="THE_LANDSCAPE_TEXT_FONT_COLOR" type="string" not-null="false" />
+		<property name="landscapeDarkFontColor" column="THE_LANDSCAPE_DARK_FONT_COLOR" type="string" not-null="false" />
+		<property name="landscapePromotionHighlightColor" column="THE_LANDSCAPE_PROMOTION_HIGHLIGHT_COLOR" type="string" not-null="false" />
+		<property name="landscapeCategoryDefault" column="THE_LANDSCAPE_CATEGORY_DEFAULT" type="string" not-null="false" />
+		<property name="landscapeCategorySelected" column="THE_LANDSCAPE_CATEGORY_SELECTED" type="string" not-null="false" />
+		<property name="landscapeNavigationHeaderColor" column="THE_LANDSCAPE_NAVIGATION_HEADER_COLOR" type="string" not-null="false" />
+		<property name="landscapeNavigationHeaderFontColor" column="THE_LANDSCAPE_NAVIGATION_HEADER_FONT_COLOR" type="string" not-null="false" />
+		<property name="landscapeNavigationBackgroundColor" column="THE_LANDSCAPE_NAVIGATION_BACKGROUND_COLOR" type="string" not-null="false" />
+		<property name="landscapeNavigationSelectedBackgroundColor" column="THE_LANDSCAPE_NAVIGATION_SELECTED_BACKGROUND_COLOR" type="string" not-null="false" />
+		
+		<property name="topPanel" column="THE_TOP_PANEL" type="string" not-null="false" />
+		<property name="portraitBackground" column="THE_PORTRAIT_BACKGROUND" type="string" not-null="false" />
+		<property name="portraitLightFontColor" column="THE_PORTRAIT_LIGHT_FONT_COLOR" type="string" not-null="false" />
+		<property name="portraitTextFontColor" column="THE_PORTRAIT_TEXT_FONT_COLOR" type="string" not-null="false" />
+		<property name="portraitDarkFontColor" column="THE_PORTRAIT_DARK_FONT_COLOR" type="string" not-null="false" />
+		<property name="portraitPromotionHighlightColor" column="THE_PORTRAIT_PROMOTION_HIGHLIGHT_COLOR" type="string" not-null="false" />
+		<property name="portraitCategoryDefault" column="THE_PORTRAIT_CATEGORY_DEFAULT" type="string" not-null="false" />
+		<property name="portraitCategorySelected" column="THE_PORTRAIT_CATEGORY_SELECTED" type="string" not-null="false" />
+		<property name="portraitNavigationHeaderColor" column="THE_PORTRAIT_NAVIGATION_HEADER_COLOR" type="string" not-null="false" />
+		<property name="portraitNavigationHeaderFontColor" column="THE_PORTRAIT_NAVIGATION_HEADER_FONT_COLOR" type="string" not-null="false" />
+		<property name="portraitNavigationBackgroundColor" column="THE_PORTRAIT_NAVIGATION_BACKGROUND_COLOR" type="string" not-null="false" />
+		<property name="portraitNavigationSelectedBackgroundColor" column="THE_PORTRAIT_NAVIGATION_SELECTED_BACKGROUND_COLOR" type="string" not-null="false" />
+		
+		
+		<property name="iwHeaderBackground" column="THE_IW_HEADER_BACKGROUND" type="string" not-null="false" />
+		<property name="iwTouchWall" column="THE_IW_TOUCH_WALL" type="string" not-null="false" />
+		<property name="iwMainBackground" column="THE_IW_MAIN_BACKGROUND" type="string" not-null="false" />
+		<property name="iwFooterBackground" column="THE_IW_FOOTER_BACKGROUND" type="string" not-null="false" />
+		<property name="iwButton" column="THE_IW_BUTTON" type="string" not-null="false" />
+		<property name="iwSelectedButton" column="THE_IW_SELECTED_BUTTON" type="string" not-null="false" />
+		
+		
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.theme.by.project">
+		select t from Theme as t where t.project.id = ?
+	</query>
+</hibernate-mapping>

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.maxSize" value="200000000" />
+	<constant name="struts2.sslplugin.httpPort" value="8080"/> 
+    <constant name="struts2.sslplugin.httpsPort" value="8443"/>
+    <constant name="struts2.app.encryptproject" value="true"/> 
+	
+	<package name="hurryapp" extends="json-default">
+		<interceptors>
+			<interceptor name="exception"         class="org.hurryapp.fwk.view.interceptor.ExceptionInterceptor"/>
+			<interceptor name="certificate"       class="org.hurryapp.quickstart.view.interceptor.CertificateInterceptor"/>
+			<interceptor name="security"          class="org.hurryapp.quickstart.view.interceptor.SecurityInterceptor"/>
+			<interceptor name="requestParameters" class="com.sotouch.myway.view.interceptor.RequestParametersInterceptor"/>
+			<interceptor name="jsInjection"       class="org.hurryapp.fwk.view.interceptor.JavaScriptInjectionInterceptor"/>
+            <interceptor name="ssl"               class="com.googlecode.sslplugin.interceptors.SSLInterceptor" >
+            	<param name="useAnnotations">true</param>
+            </interceptor>
+			<interceptor-stack name="hurryappStack">
+				<interceptor-ref name="ssl"/>
+				<interceptor-ref name="exception"/>
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="security"/>
+				<interceptor-ref name="requestParameters"/>
+				<interceptor-ref name="jsInjection"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="hurryappStack" />
+
+		<global-results>
+			<result name="login" type="chain">
+				<param name="namespace">/login</param>
+				<param name="actionName">init</param>
+			</result>
+			<result name="error">/pages/common/erreur.jsp</result>
+			<result name="success-json" type="json"><param name="root">jsonResponse</param><param name="noCache">true</param><param name="contentType">text/html</param></result>
+			<result name="datas-json"   type="json"><param name="root">jsonResponse.datas</param><param name="noCache">true</param></result>
+			<result name="login-json"   type="json"><param name="errorCode">408</param><param name="noCache">true</param></result>
+			<result name="error-json"   type="json"><param name="errorCode">503</param><param name="noCache">true</param><param name="contentType">text/html</param></result>
+			<result name="excel"        type="stream"><param name="contentType">${excelContentType}</param><param name="inputName">excelStream</param><param name="contentDisposition">attachment; filename="${excelFileName}"</param><param name="bufferSize">1024</param></result>
+			<result name="success-txt">/pages/success.txt</result>
+			<result name="error-txt">/pages/error.txt</result>
+			<result name="input" type="json"><param name="root">jsonResponseUpload</param><param name="noCache">true</param><param name="contentType">text/html</param></result>
+			<result name="certificate_failed" type="redirect">/certificate/init</result>
+		</global-results>
+	</package>
+
+	<package name="service" extends="json-default">
+		<interceptors>
+			<interceptor name="exception" class="org.hurryapp.fwk.view.interceptor.ExceptionInterceptor"/>
+			<interceptor name="certificate"       class="org.hurryapp.quickstart.view.interceptor.CertificateInterceptor"/>
+			<interceptor name="security"  class="org.hurryapp.quickstart.view.interceptor.SecurityInterceptor"/>
+			<interceptor-stack name="serviceStack">
+				<interceptor-ref name="exception"/>
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="security"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="serviceStack" />
+
+		<global-results>
+			<result name="login" type="chain">
+				<param name="namespace">/login</param>
+				<param name="actionName">init</param>
+			</result>
+			<result name="success-json" type="json"><param name="root">jsonResponse</param><param name="noCache">true</param></result>
+			<result name="datas-json"   type="json"><param name="root">jsonResponse.datas</param><param name="noCache">true</param></result>
+			<result name="error-json"   type="json"><param name="errorCode">503</param><param name="noCache">true</param><param name="contentType">text/html</param></result>
+			<result name="success-xml" type="stream">
+				<param name="contentType">text/xml</param>
+				<param name="inputName">xmlResponse</param>
+			</result>   
+			<result name="certificate_failed" type="redirect">/certificate/init</result>
+		</global-results>
+	</package>
+	
+	<package name="needcertificate" extends="hurryapp">
+		<interceptors>
+			<interceptor-stack name="certificateStack">
+				<interceptor-ref name="certificate"/>
+				<interceptor-ref name="hurryappStack"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="certificateStack" />
+    </package>
+
+	<package name="login" namespace="/login" extends="hurryapp">
+		<action name="init" method="init" class="loginAction">
+			<result>/pages/login.jsp</result>
+		</action>
+		<action name="execute" method="execute" class="loginAction" />
+		<action name="logout"  method="logout"  class="loginAction"/>
+		<action name="passwordForgotten" method="passwordForgotten" class="loginAction"/>
+	</package>
+
+	<package name="signin" namespace="/signin" extends="hurryapp">
+		<action name="save" method="save" class="signinAction"/>
+	</package>
+
+	<package name="utilisateur" namespace="/utilisateur" extends="hurryapp">
+		<action name="init" method="init" class="utilisateurAction">
+			<result>/pages/quickstart/utilisateur/utilisateurs.jsp</result>
+		</action>
+		<action name="load"   method="load"    class="utilisateurAction"/>
+		<action name="edit"   method="edit"    class="utilisateurAction"/>
+		<action name="save"   method="save"    class="utilisateurAction"/>
+		<action name="delete" method="delete"  class="utilisateurAction"/>
+		<action name="saveGroupes" method="saveGroupes" class="utilisateurAction"/>
+		<action name="loadByProject" method="loadByProject" class="utilisateurAction"/>
+		<action name="loadByCompanyNotInProject" method="loadByCompanyNotInProject" class="utilisateurAction"/>
+	</package>
+
+	<package name="groupe" namespace="/groupe" extends="hurryapp">
+		<action name="init" method="init" class="groupeAction">
+			<result>/pages/quickstart/groupe/groupes.jsp</result>
+		</action>
+		<action name="load"   method="load"    class="groupeAction"/>
+		<action name="edit"   method="edit"    class="groupeAction"/>
+		<action name="save"   method="save"    class="groupeAction"/>
+		<action name="delete" method="delete"  class="groupeAction"/>
+		<action name="updateModified"    method="updateModified"    class="groupeAction"/>
+		<action name="saveRessources"    method="saveRessources"    class="groupeAction"/>
+		<action name="loadByUtilisateur" method="loadByUtilisateur" class="groupeAction"/>
+		<action name="loadByMenu"        method="loadByMenu"        class="groupeAction"/>
+		<action name="loadByRessource"   method="loadByRessource"   class="groupeAction"/>
+	</package>
+
+	<package name="ressource" namespace="/ressource" extends="hurryapp">
+		<action name="init" method="init" class="ressourceAction">
+			<result>/pages/quickstart/ressource/ressources.jsp</result>
+		</action>
+		<action name="load"   method="load"    class="ressourceAction"/>
+		<action name="edit"   method="edit"    class="ressourceAction"/>
+		<action name="save"   method="save"    class="ressourceAction"/>
+		<action name="delete" method="delete"  class="ressourceAction"/>
+		<action name="updateModified" method="updateModified" class="ressourceAction"/>
+		<action name="loadByGroupe"   method="loadByGroupe"   class="ressourceAction"/>
+    </package>
+
+    <package name="device" namespace="/device" extends="hurryapp">
+		<action name="init" method="init" class="deviceAction">
+			<result>/pages/quickstart/device/devices.jsp</result>
+		</action>
+		<action name="load"   method="load"    class="deviceAction"/>
+		<action name="edit"   method="edit"    class="deviceAction"/>
+		<action name="save"   method="save"    class="deviceAction"/>
+		<action name="updateModified"   method="updateModified"    class="deviceAction"/>
+		
+		<action name="loadByLicense"   method="loadByLicense"    class="deviceAction"/>
+    	<action name="loadByNoLicense"   method="loadByNoLicense"    class="deviceAction"/>
+    </package>
+    
+    <package name="software" namespace="/software" extends="hurryapp">
+		<action name="init" method="init" class="softwareAction">
+			<result>/pages/quickstart/software/software.jsp</result>
+		</action>
+		<action name="load"   method="load"    class="softwareAction"/>
+		<action name="edit"   method="edit"    class="softwareAction"/>
+		<action name="save"   method="save"    class="softwareAction"/>
+		<action name="delete"   method="delete"    class="softwareAction"/>
+		<action name="updateModified"   method="updateModified"    class="softwareAction"/>
+    </package>
+
+	<package name="menu" namespace="/menu" extends="hurryapp">
+		<action name="init" method="init" class="menuAction">
+			<result>/pages/quickstart/menu/menus.jsp</result>
+		</action>
+	    <action name="load"   method="loadTreeNodes" class="menuAction"/>
+	    <action name="edit"   method="edit"          class="menuAction"/>
+		<action name="save"   method="save"          class="menuAction"/>
+		<action name="delete" method="delete"        class="menuAction"/>
+		<action name="move"   method="move"          class="menuAction"/>
+		<action name="saveGroupes" method="saveGroupes" class="menuAction"/>
+	</package>
+
+	<package name="config" namespace="/config" extends="hurryapp">
+		<action name="init" method="init" class="configDomainAction">
+			<result>/pages/quickstart/config/config.jsp</result>
+		</action>
+		<action name="load"   method="load"    class="configDomainAction"/>
+		<action name="edit"   method="edit"    class="configDomainAction"/>
+		<action name="save"   method="save"    class="configDomainAction"/>
+		<action name="delete" method="delete"  class="configDomainAction"/>
+	</package>
+
+	<package name="configParameter" namespace="/configParameter" extends="hurryapp">
+		<action name="load"    method="load"    class="configParameterAction"/>
+		<action name="edit"    method="edit"    class="configParameterAction"/>
+		<action name="save"    method="save"    class="configParameterAction"/>
+		<action name="delete"  method="delete"  class="configParameterAction"/>
+		<action name="updateModified" method="updateModified" class="configParameterAction"/>
+	</package>
+
+	<package name="company" namespace="/company" extends="hurryapp">
+		<action name="init" method="init" class="companyAction">
+			<result>/pages/company/companys.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="companyAction"/>
+		<action name="edit"    method="edit"    class="companyAction"/>
+		<action name="save"    method="save"    class="companyAction"/>
+		<action name="delete"  method="delete"  class="companyAction"/>
+		<action name="updateModified" method="updateModified" class="companyAction"/>
+	</package>
+
+	<package name="project" namespace="/project" extends="hurryapp">
+		<action name="init" method="init" class="projectAction">
+			<result name="success">/pages/project/projects.jsp</result>
+			<result name="success-edit">/pages/project/projectEdit.jsp</result>
+			<result name="deny-edit">/pages/project/projects.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="projectAction"/>
+		<action name="edit"    method="edit"    class="projectAction"/>
+		<action name="translate"    method="translate"    class="projectAction"/>
+		<action name="save"    method="save"    class="projectAction"/>
+		<action name="delete"  method="delete"  class="projectAction"/>
+		<action name="select"  method="select"  class="projectAction"/>
+		<action name="updateModified" method="updateModified" class="projectAction"/>
+		<action name="select"      method="select"      class="projectAction"/>
+		<action name="saveUsers"   method="saveUsers"   class="projectAction"/>
+		<action name="uploadFiles" method="uploadFiles" class="projectAction"/>
+		<action name="deleteFile"  method="deleteFile"  class="projectAction"/>
+	</package>
+	
+	<package name="update" namespace="/update" extends="hurryapp">
+		<action name="keyValidate"  method="keyValidate"  class="updateAction"/>
+		<action name="checkForceUpdate"  method="checkForceUpdate"  class="updateAction"/>
+		<action name="checkForUpdate"  method="checkForUpdate"  class="updateAction"/>
+		<action name="getProjectZip"  method="getProjectZip"  class="updateAction">
+			<result name="success" type="stream">   
+       			<!--这是下载文件的类型-->   
+       			<param name="contentType">application/zip</param>
+       			<!--这是获取文件的输入流，在Action中是核心点-->   
+       			<param name="inputName">inputStream</param>  
+       			<!--下载文件的处理方式-->    
+       			<param name="contentDisposition">attachment;filename="${downFileName}"</param>  
+       			<!--缓存区大小-->    
+       			<param name="bufferSize">4096</param>
+       			<param name="contentLength">${downFileSize}</param>  
+   			</result>
+		</action>
+	</package>
+	
+	<package name="theme" namespace="/theme" extends="hurryapp">
+		<action name="init" method="init" class="themeAction">
+			<result>/pages/theme/theme.jsp</result>
+		</action>
+		<action name="edit"    method="edit"    class="themeAction"/>
+		<action name="save"    method="save"    class="themeAction"/>
+		<action name="uploadFiles"    method="uploadFiles"    class="themeAction"/>
+		<action name="deleteFile"    method="deleteFile"    class="themeAction"/>
+		
+	</package>
+
+<package name="certificate" namespace="/certificate" extends="hurryapp">
+		<action name="init" method="init" class="certificateAction">
+			<result>/pages/certificate.jsp</result>
+		</action>
+	</package>
+		
+	<package name="building" namespace="/building" extends="hurryapp">
+		<action name="init" method="init" class="buildingAction">
+			<result>/pages/building/buildings.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="buildingAction"/>
+		<action name="edit"    method="edit"    class="buildingAction"/>
+		<action name="save"    method="save"    class="buildingAction"/>
+		<action name="delete"  method="delete"  class="buildingAction"/>
+		<action name="translate" method="translate" class="buildingAction"/>
+		<action name="updateModified" method="updateModified" class="buildingAction"/>
+	</package>
+
+	<package name="floor" namespace="/floor" extends="hurryapp">
+		<action name="load"    method="load"    class="floorAction"/>
+		<action name="edit"    method="edit"    class="floorAction"/>
+		<action name="save"    method="save"    class="floorAction"/>
+		<action name="delete"  method="delete"  class="floorAction"/>
+		<action name="updateModified" method="updateModified" class="floorAction"/>
+		<action name="preview" method="preview" class="floorAction"/>
+		<action name="translate" method="translate" class="floorAction"/>
+	</package>
+	
+	<package name="zone" namespace="/zone" extends="hurryapp">
+		<action name="load"    method="load"    class="zoneAction"/>
+		<action name="edit"    method="edit"    class="zoneAction"/>
+		<action name="save"    method="save"    class="zoneAction"/>
+		<action name="delete"  method="delete"  class="zoneAction"/>
+		<action name="updateModified" method="updateModified" class="zoneAction"/>
+		<action name="translate" method="translate" class="zoneAction"/>
+	</package>
+
+	<package name="category" namespace="/category" extends="hurryapp">
+		<action name="init" method="init" class="categoryAction">
+			<result>/pages/category/categories.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="categoryAction"/>
+		<action name="edit"    method="edit"    class="categoryAction"/>
+		<action name="translate"    method="translate"    class="categoryAction"/>
+		<action name="save"    method="save"    class="categoryAction"/>
+		<action name="delete"  method="delete"  class="categoryAction"/>
+		<action name="updateModified" method="updateModified" class="categoryAction"/>
+		<action name="transformSubCategoryToCategory" method="transformSubCategoryToCategory" class="categoryAction"/>
+	</package>
+
+	<package name="subCategory" namespace="/subCategory" extends="hurryapp">
+		<action name="load"    method="load"    class="subCategoryAction"/>
+		<action name="edit"    method="edit"    class="subCategoryAction"/>
+		<action name="translate"    method="translate"    class="subCategoryAction"/>
+		<action name="save"    method="save"    class="subCategoryAction"/>
+		<action name="delete"  method="delete"  class="subCategoryAction"/>
+		<action name="updateModified" method="updateModified" class="subCategoryAction"/>
+		<action name="transformCategoryToSubCategory" method="transformCategoryToSubCategory" class="subCategoryAction"/>
+	</package>
+
+	<package name="language" namespace="/language" extends="hurryapp">
+		<action name="init" method="init" class="languageAction">
+			<result>/pages/language/languages.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="languageAction"/>
+		<action name="edit"    method="edit"    class="languageAction"/>
+		<action name="save"    method="save"    class="languageAction"/>
+		<action name="delete"  method="delete"  class="languageAction"/>
+		<action name="updateModified" method="updateModified" class="languageAction"/>
+		<action name="loadTemplates"  method="loadTemplates"  class="languageAction"/>
+		<action name="resetProjectsLaguages" method="resetProjectsLaguages" class="languageAction"/>
+	</package>
+
+	<package name="wording" namespace="/wording" extends="hurryapp">
+		<action name="init" method="init" class="wordingAction">
+			<result>/pages/language/wordings.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="wordingAction"/>
+		<action name="edit"    method="edit"    class="wordingAction"/>
+		<action name="save"    method="save"    class="wordingAction"/>
+		<action name="delete"  method="delete"  class="wordingAction"/>
+		<action name="updateModified" method="updateModified" class="wordingAction"/>
+	</package>
+
+	<package name="itemType" namespace="/itemType" extends="hurryapp">
+		<action name="init" method="init" class="itemTypeAction">
+			<result>/pages/itemType/itemTypes.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="itemTypeAction"/>
+		<action name="edit"    method="edit"    class="itemTypeAction"/>
+		<action name="save"    method="save"    class="itemTypeAction"/>
+		<action name="delete"  method="delete"  class="itemTypeAction"/>
+		<action name="updateModified" method="updateModified" class="itemTypeAction"/>
+	</package>
+
+	<package name="iconGroup" namespace="/iconGroup" extends="hurryapp">
+		<action name="init" method="init" class="iconGroupAction">
+			<result>/pages/iconGroup/iconGroups.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="iconGroupAction"/>
+		<action name="edit"    method="edit"    class="iconGroupAction"/>
+		<action name="save"    method="save"    class="iconGroupAction"/>
+		<action name="delete"  method="delete"  class="iconGroupAction"/>
+		<action name="updateModified" method="updateModified" class="iconGroupAction"/>
+	</package>
+
+	<package name="icon" namespace="/icon" extends="hurryapp">
+		<action name="load"    method="load"    class="iconAction"/>
+		<action name="edit"    method="edit"    class="iconAction"/>
+		<action name="save"    method="save"    class="iconAction"/>
+		<action name="delete"  method="delete"  class="iconAction"/>
+		<action name="updateModified" method="updateModified" class="iconAction"/>
+		<action name="restoreDefaultIcons" method="restoreDefaultIcons" class="iconAction"/>
+	</package>
+
+	<package name="item" namespace="/item" extends="hurryapp">
+		<action name="init" method="init" class="itemAction">
+			<result>/pages/item/items.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="itemAction"/>
+		<action name="translate"    method="translate"    class="itemAction"/>
+		<action name="edit"    method="edit"    class="itemAction"/>
+		<action name="save"    method="save"    class="itemAction"/>
+		<action name="delete"  method="delete"  class="itemAction"/>
+		<action name="updateModified" method="updateModified" class="itemAction"/>
+		
+		<action name="query" method="query" class="itemAction"/>
+		<action name="copy" method="copy" class="itemAction"/>
+		
+	</package>
+
+	<package name="imageGallery" namespace="/imageGallery" extends="hurryapp">
+		<action name="upload" method="upload" class="imageGalleryAction"/>
+		<action name="delete" method="delete" class="imageGalleryAction"/>
+	</package>
+
+	<package name="event" namespace="/event" extends="hurryapp">
+		<action name="init" method="init" class="eventAction">
+			<result>/pages/event/events.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="eventAction"/>
+		<action name="edit"    method="edit"    class="eventAction"/>
+		<action name="translate"    method="translate"    class="eventAction"/>
+		<action name="save"    method="save"    class="eventAction"/>
+		<action name="delete"  method="delete"  class="eventAction"/>
+		<action name="updateModified" method="updateModified" class="eventAction"/>
+	</package>
+
+	<package name="promotion" namespace="/promotion" extends="hurryapp">
+		<action name="init" method="init" class="promotionAction">
+			<result>/pages/promotion/promotions.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="promotionAction"/>
+		<action name="edit"    method="edit"    class="promotionAction"/>
+		<action name="translate"    method="translate"    class="promotionAction"/>
+		<action name="save"    method="save"    class="promotionAction"/>
+		<action name="delete"  method="delete"  class="promotionAction"/>
+		<action name="updateModified" method="updateModified" class="promotionAction"/>
+	</package>
+
+	<package name="newsletter" namespace="/newsletter" extends="hurryapp">
+		<action name="init" method="init" class="newsletterEmailAction">
+			<result>/pages/newsletterEmail/newsletterEmails.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="newsletterEmailAction"/>
+		<action name="edit"    method="edit"    class="newsletterEmailAction"/>
+		<action name="save"    method="save"    class="newsletterEmailAction"/>
+		<action name="delete"  method="delete"  class="newsletterEmailAction"/>
+		<action name="updateModified" method="updateModified" class="newsletterEmailAction"/>
+		<action name="export"      method="export"      class="newsletterEmailAction"/>
+		<action name="addContact"  method="addContact"  class="newsletterEmailAction"/>
+		<action name="addContacts" method="addContacts" class="newsletterEmailAction"/>
+	</package>
+
+	<package name="license" namespace="/license" extends="hurryapp">
+		<action name="init" method="init" class="licenseAction">
+			<result>/pages/license/licenses.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="licenseAction"/>
+		<action name="edit"    method="edit"    class="licenseAction"/>
+		<action name="save"    method="save"    class="licenseAction"/>
+		<action name="delete"  method="delete"  class="licenseAction"/>
+		<action name="updateModified" method="updateModified" class="licenseAction"/>
+		<action name="translate" method="translate" class="licenseAction"/>
+		
+		<action name="saveDevices" method="saveDevices" class="licenseAction"/>
+	</package>
+	
+	<package name="softwareUpdate" namespace="/softwareUpdate" extends="hurryapp">
+		<action name="load"    method="load"    class="softwareUpdateAction"/>
+		<action name="save"    method="save"    class="softwareUpdateAction"/>
+	</package>
+
+	<package name="playlist" namespace="/playlist" extends="hurryapp">
+		<action name="load"    method="load"    class="playlistAction"/>
+		<action name="edit"    method="edit"    class="playlistAction"/>
+		<action name="save"    method="save"    class="playlistAction"/>
+		<action name="delete"  method="delete"  class="playlistAction"/>
+		<action name="updateModified" method="updateModified" class="playlistAction"/>
+		
+		<action name="copy" method="copy" class="playlistAction"/>
+	</package>
+
+	<package name="ad" namespace="/ad" extends="hurryapp">
+		<action name="init" method="init" class="adAction">
+			<result>/pages/ad/ads.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="adAction"/>
+		<action name="edit"    method="edit"    class="adAction"/>
+		<action name="save"    method="save"    class="adAction"/>
+		<action name="delete"  method="delete"  class="adAction"/>
+		<action name="updateModified" method="updateModified" class="adAction"/>
+		<action name="updateIndexes"  method="updateIndexes"  class="adAction"/>
+	</package>
+
+	<package name="settings" namespace="/settings" extends="hurryapp">
+		<action name="init" method="init" class="settingsAction">
+			<result>/pages/settings/settings.jsp</result>
+		</action>
+		<action name="load"    method="load"    class="settingsAction"/>
+		<action name="edit"    method="edit"    class="settingsAction"/>
+		<action name="save"    method="save"    class="settingsAction"/>
+		<action name="delete"  method="delete"  class="settingsAction"/>
+		<action name="updateModified" method="updateModified" class="settingsAction"/>
+	</package>
+
+	<package name="map" namespace="/map" extends="service">
+		<action name="init" method="init" class="mapAction">
+			<result>/pages/map/map.jsp</result>
+		</action>
+		<action name="initEditor" method="initEditor" class="mapAction"><param name="xml">true</param></action>
+		<action name="saveEditor" method="saveEditor" class="mapAction"><param name="xml">true</param></action>
+		<action name="publishProject" method="publishProject" class="mapAction"><param name="xml">true</param></action>
+		<action name="listItems" method="listItems" class="mapAction"><param name="xml">true</param></action>
+	</package>
+
+	<package name="activation" namespace="/activation" extends="service">
+		<action name="init" method="init" class="activationAction">
+			<result>/pages/map/map.jsp</result>
+		</action>
+		<action name="createProjects" method="createProjects" class="activationAction"><param name="xml">true</param></action>
+		<action name="createTerminals" method="createTerminals" class="activationAction"><param name="xml">true</param></action>
+		<action name="activateAds" method="activateAds" class="activationAction"><param name="xml">true</param></action>
+	</package>
+</struts>

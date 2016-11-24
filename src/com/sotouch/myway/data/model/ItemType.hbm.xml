@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.ItemType" table="ITEM_TYPE" lazy="false">
+		<id name="id" column="ITT_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="ITT_NAME" type="string" length="100" not-null="true" />
+		<property name="icon" column="ITT_ICON" type="string" length="255" not-null="false" />
+		<property name="index" column="ITT_INDEX" type="integer" not-null="false" />
+	</class>
+
+	<query name="select.itemType.except.terminal">
+		select i from ItemType as i where i.id != ? order by i.index
+	</query>
+
+	<query name="select.itemType.by.name">
+		select i from ItemType as i where i.name = ?
+	</query>
+</hibernate-mapping>

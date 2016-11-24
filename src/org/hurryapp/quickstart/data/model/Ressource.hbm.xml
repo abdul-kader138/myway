@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.hurryapp.quickstart.data.model.Ressource" table="RESOURCE" lazy="false">
+
+		<id name="id" column="RSC_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="libelle" column="RSC_LIBELLE" type="string" length="30" not-null="true" />
+
+        <set name="groupes" table="PROFILE_2_RESOURCE" cascade="save-update" lazy="true">
+            <key column="RSC_ID" not-null="false" />
+            <many-to-many class="org.hurryapp.quickstart.data.model.Groupe" column="GRP_ID" />
+        </set>
+
+	</class>
+
+	<query name="select.ressource.by.groupe">
+		select r from Ressource as r join fetch r.groupes as g where g.id=? order by r.libelle
+	</query>
+
+	<query name="select.ressource.by.libelle">
+		select r from Ressource as r where r.libelle=?
+	</query>
+</hibernate-mapping>

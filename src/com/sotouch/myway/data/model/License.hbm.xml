@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.License" table="LICENSE" lazy="false">
+		<id name="id" column="LIC_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="key" column="LIC_KEY" type="string" length="100" not-null="true" />
+		<property name="description" column="LIC_DESCRIPTION" type="string" length="200" not-null="false" />
+		<property name="orientation" column="LIC_ORIENTATION" type="string" length="10" not-null="false" />
+		<property name="logo" column="LIC_LOGO" type="string" length="255" not-null="false" />
+
+		<list name="licenseContents" table="LICENSE_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="LIC_ID" not-null="false" />
+            <list-index column="LICC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.LicenseContent" />
+        </list>
+        
+		<many-to-one class="com.sotouch.myway.data.model.Project" name="project">
+			<column name="PRO_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Item" name="item">
+			<column name="ITE_ID" />
+		</many-to-one>
+		
+		<set name="devices" table="DEVICE" cascade="none" lazy="true">
+            <key column="LIC_ID" not-null="false" />
+            <one-to-many class="org.hurryapp.quickstart.data.model.Device"/>
+        </set>
+        
+	</class>
+
+	<query name="select.license.by.project">
+		select l from License as l where l.project.id = ? order by l.key
+	</query>
+	
+	<query name="count.license.by.project">
+		select count(l) from License as l where l.project.id = ? order by l.key
+	</query>
+</hibernate-mapping>

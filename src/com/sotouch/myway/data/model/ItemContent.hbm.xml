@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.ItemContent" table="ITEM_CONTENT" lazy="false">
+		<id name="id" column="ITC_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="ITC_NAME" type="string" length="100" not-null="false" />
+		<property name="description" column="ITC_DESCRIPTION" type="string" length="2000" not-null="false" />
+		<property name="keywords" column="ITC_KEYWORDS" type="string" length="500" not-null="false" />
+		<property name="openingDays" column="ITC_OPENING_DAYS" type="string" length="100" not-null="false" />
+		<property name="url" column="ITC_URL" type="string" length="255" not-null="false" />
+		<property name="index" column="ITC_INDEX" type="integer" not-null="true" />
+
+		<many-to-one class="com.sotouch.myway.data.model.Item" name="item">
+			<column name="ITE_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Language" name="language">
+			<column name="LAN_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

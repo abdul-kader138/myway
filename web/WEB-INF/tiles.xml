@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="layout-app-login" template="/pages/common/layout-login.jsp">
+		<put-attribute name="body" value=""/>
+	</definition>
+
+	<definition name="layout-app-admin" template="/pages/common/layout-admin.jsp">
+		<put-attribute name="menu" value="/pages/common/app/menu-admin.jsp"/>
+		<put-attribute name="body" value=""/>
+	</definition>
+
+	<definition name="layout-app-project" template="/pages/common/layout-project.jsp">
+		<put-attribute name="menu" value="/pages/common/app/menu-admin.jsp"/>
+		<put-attribute name="sub-menu" value="/pages/common/app/menu-project.jsp"/>
+		<put-attribute name="body" value=""/>
+	</definition>
+
+</tiles-definitions>

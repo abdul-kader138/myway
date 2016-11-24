@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Path" table="PATH" lazy="false">
+		<id name="id" column="PAT_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="fastest" column="PAT_FASTEST" type="string" length="2000" not-null="false" />
+		<property name="easiest" column="PAT_EASIEST" type="string" length="2000" not-null="false" />
+
+		<many-to-one class="com.sotouch.myway.data.model.ItemMap" name="itemMapStart">
+			<column name="ITM_ID_START" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.ItemMap" name="itemMapEnd">
+			<column name="ITM_ID_END" />
+		</many-to-one>
+	</class>
+
+	<query name="select.path.by.project">
+		select p from Path as p where p.itemMapStart.item.project.id = ?
+	</query>
+</hibernate-mapping>

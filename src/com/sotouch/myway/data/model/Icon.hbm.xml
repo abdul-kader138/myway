@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Icon" table="ICON" lazy="false">
+		<id name="id" column="ICO_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="ICO_NAME" type="string" length="50" not-null="false" />
+		<property name="icon" column="ICO_ICON" type="string" length="255" not-null="true" />
+
+		<many-to-one class="com.sotouch.myway.data.model.ItemType" name="itemType">
+			<column name="ITT_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.IconGroup" name="iconGroup">
+			<column name="ICG_ID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.icon.common">
+		select i from Icon as i where i.itemType is not null order by i.itemType.name, i.name
+	</query>
+
+	<query name="select.icon.by.project">
+		select i from Icon as i where i.iconGroup.project.id = ? order by i.iconGroup.name, i.name
+	</query>
+
+	<query name="select.icon.by.itemType">
+		select i from Icon as i where i.itemType.id = ?
+	</query>
+
+	<query name="select.icon.by.group.and.name">
+		select i from Icon as i where i.iconGroup.id = ? and i.name = ?
+	</query>
+</hibernate-mapping>

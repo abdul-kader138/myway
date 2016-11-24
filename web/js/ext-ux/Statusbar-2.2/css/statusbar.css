@@ -1,0 +1,30 @@
+#word-status .x-status-text {
+	COLOR: #777
+}
+#word-status .x-status-text-panel .spacer {
+	FONT-SIZE: 0px; WIDTH: 60px; LINE-HEIGHT: 0
+}
+#word-status .x-status-busy {
+	PADDING-LEFT: 25px; BACKGROUND: url(images/saving.gif) no-repeat 3px 3px
+}
+#word-status .x-status-saved {
+	PADDING-LEFT: 25px; BACKGROUND: url(images/saved.png) no-repeat 3px 3px
+}
+.x-statusbar .x-status-error {
+	PADDING-LEFT: 25px; BACKGROUND: url(../../resources/images/default/form/exclamation.gif) no-repeat 3px 3px; CURSOR: pointer; COLOR: #c33
+}
+.x-statusbar .x-status-valid {
+	PADDING-LEFT: 25px; BACKGROUND: url(images/accept.png) no-repeat 3px 3px
+}
+.x-status-error-list {
+	BORDER-RIGHT: #c33 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #c33 1px solid; PADDING-LEFT: 10px; Z-INDEX: 9999; BACKGROUND: #ffa; PADDING-BOTTOM: 5px; FONT: 11px tahoma,arial,verdana,sans-serif; BORDER-LEFT: #c33 1px solid; COLOR: #999; PADDING-TOP: 5px; BORDER-BOTTOM: #c33 1px solid; POSITION: absolute
+}
+.x-status-error-list LI {
+	MARGIN-LEFT: 10px; CURSOR: pointer; LIST-STYLE-TYPE: disc
+}
+.x-status-error-list LI A {
+	COLOR: #15428b; TEXT-DECORATION: none
+}
+.x-status-error-list LI A:hover {
+	TEXT-DECORATION: underline
+}

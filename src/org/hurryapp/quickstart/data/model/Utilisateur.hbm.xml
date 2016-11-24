@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.hurryapp.quickstart.data.model.Utilisateur" table="USER" lazy="false">
+
+        <id name="id" column="USR_ID" type="integer">
+			<generator class="increment" />
+        </id>
+
+        <property name="login"    column="USR_LOGIN"    type="java.lang.String" length="20" not-null="true" />
+        <property name="password" column="USR_PASSWORD" type="java.lang.String" length="20" not-null="true" />
+        <property name="nom"      column="USR_NOM"      type="java.lang.String" length="50" />
+        <property name="prenom"   column="USR_PRENOM"   type="java.lang.String" length="50" />
+        <property name="email"    column="USR_EMAIL"    type="java.lang.String" length="100" />
+        <property name="phone"    column="USR_PHONE"    type="java.lang.String" length="30" />
+
+        <set name="groupes" table="USER_2_PROFILE" cascade="none" lazy="false">
+            <key column="USR_ID" not-null="false" />
+            <many-to-many class="org.hurryapp.quickstart.data.model.Groupe" column="GRP_ID" />
+        </set>
+
+		<many-to-one name="groupe" column="GRP_ID" class="org.hurryapp.quickstart.data.model.Groupe" cascade="none"/>
+
+		<many-to-one name="company" column="COM_ID" class="com.sotouch.myway.data.model.Company" cascade="none"/>
+
+        <set name="projects" table="PROJECT_2_USER" cascade="none" lazy="true">
+            <key column="USR_ID" not-null="true" />
+            <many-to-many class="com.sotouch.myway.data.model.Project" column="PRO_ID" />
+        </set>
+    </class>
+
+    <query name="select.utilisateur.by.login">
+    from Utilisateur as u left join fetch u.projects as p where u.login = ?
+	</query>
+
+	<query name="select.utilisateur.by.project">
+		select u from Utilisateur as u join u.projects as p where p.id = ? order by u.nom
+	</query>
+
+	<query name="select.utilisateur.admins.by.company">
+		select u from Utilisateur as u where u.company.id = ? and u.groupe.id = 2
+	</query>
+</hibernate-mapping>

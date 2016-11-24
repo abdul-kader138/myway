@@ -1,0 +1,204 @@
+/*******************************************************************************/
+/* Translate Tooltip                                                              */
+/*******************************************************************************/
+
+/* Center */
+div.translate-tooltip .x-tip-mc {
+	border: 0 none;
+	background-color: #F4F2F2;
+	cursor: default;
+}
+
+/* Left side */
+div.translate-tooltip .x-tip-ml{
+	background: url("../images/custom-tooltip/tooltip-ml.png") repeat-y scroll transparent;
+    padding-left: 7px;
+}
+
+
+/* Right side */
+div.translate-tooltip .x-tip-mr{
+	background: url("../images/custom-tooltip/tooltip-mr.png") repeat-y scroll right transparent;
+    padding-right: 10px;
+}
+
+/* Top side */
+div.translate-tooltip .x-tip-tc{
+	background: url("../images/custom-tooltip/tooltip-tc.png") repeat-x scroll transparent;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+/* Bottom side */
+div.translate-tooltip .x-tip-bc{
+	background: url("../images/custom-tooltip/tooltip-bc.png") repeat-x scroll transparent;
+    height: 10px;
+    overflow: hidden;
+}
+
+/* Top left corner */
+div.translate-tooltip .x-tip-tl {
+	background: url("../images/custom-tooltip/tooltip-tl.png") no-repeat scroll transparent;
+    overflow: hidden;
+    padding-left: 8px;
+}
+
+/* Top right corner */
+div.translate-tooltip .x-tip-tr {
+	background: url("../images/custom-tooltip/tooltip-tr.png") no-repeat scroll right transparent;
+    overflow: hidden;
+    padding-right: 8px;
+}
+
+/* Bottom left corner */
+div.translate-tooltip .x-tip-bl {
+	background: url("../images/custom-tooltip/tooltip-bl.png") no-repeat scroll transparent;
+    padding-left: 8px;
+}
+
+/* Bottom right corner */
+div.translate-tooltip .x-tip-br {
+	background: url("../images/custom-tooltip/tooltip-br.png") no-repeat scroll right transparent;
+    padding-right: 10px;
+}
+
+/* Image */
+/*.x-tip .x-tip-tc, .x-tip .x-tip-tl, .x-tip .x-tip-tr, .x-tip .x-tip-bc, .x-tip .x-tip-bl, .x-tip .x-tip-br, .x-tip .x-tip-ml, .x-tip .x-tip-mr {
+    background-image: url("../ext-3.1/resources/images/gray-green/qtip/tip-sprite.gif");
+}*/
+
+/* Text */
+div.translate-tooltip .x-tip-body {
+	font-family: Arial;
+	font-size: 12px;
+	padding: 10px;
+}
+
+/* Anchor left */
+.x-tip-anchor-left {
+	background: url("../images/custom-tooltip/tooltip-anchor.png") no-repeat scroll right transparent;
+    width: 13px;
+    height: 15px;
+}
+
+/* Shadow */
+.x-ie-shadow {
+    display: none;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+}
+
+.x-shadow {
+    display: none;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+}
+
+.x-shadow * {
+    overflow: hidden;
+    border: 0 none;
+    clear: none;
+    margin: 0;
+    padding: 0;
+}
+
+.x-shadow .xstc, .x-shadow .xsbc {
+    float: left;
+    height: 6px;
+}
+
+.x-shadow .xstl, .x-shadow .xstr, .x-shadow .xsbl, .x-shadow .xsbr {
+    float: left;
+    height: 6px;
+    width: 6px;
+}
+
+.x-shadow .xsc {
+    width: 100%;
+}
+
+.x-shadow .xsml, .x-shadow .xsmr {
+    float: left;
+    height: 100%;
+    width: 6px;
+}
+
+.x-shadow .xsmc {
+    background: none repeat scroll 0 0 transparent;
+    float: left;
+    height: 100%;
+}
+
+.x-shadow .xst, .x-shadow .xsb {
+    height: 6px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.x-shadow .xsml {
+    background: none repeat-y scroll 0 0 transparent;
+}
+
+.x-shadow .xsmr {
+    background: none repeat-y scroll -6px 0 transparent;
+}
+
+.x-shadow .xstl {
+    background: none no-repeat scroll 0 0 transparent;
+}
+
+.x-shadow .xstc {
+    background: none repeat-x scroll 0 -30px transparent;
+}
+
+.x-shadow .xstr {
+    background: none repeat-x scroll 0 -18px transparent;
+}
+
+.x-shadow .xsbl {
+    background: none no-repeat scroll 0 -12px transparent;
+}
+
+.x-shadow .xsbc {
+    background: none repeat-x scroll 0 -36px transparent;
+}
+
+.x-shadow .xsbr {
+    background: none repeat-x scroll 0 -6px transparent;
+}
+
+.x-ie-shadow {
+    background-color: #777777;
+}
+
+.x-shadow .xsmc {
+    background-image: none;
+}
+
+.x-shadow .xsml, .x-shadow .xsmr {
+    background-image: none;
+}
+
+.x-shadow .xstl, .x-shadow .xstc, .x-shadow .xstr, .x-shadow .xsbl, .x-shadow .xsbc, .x-shadow .xsbr {
+    background-image: none;
+}
+
+.x-shadow * {
+    display: none;
+}
+
+/* Help icon */
+.tool-help {
+	background-image:url(../images/custom-tooltip/tool-help.png) !important;
+	background-repeat: no-repeat;
+	width: 16px;
+	cursor: default;
+}
+
+.tool-help:hover {
+	background-image:url(../images/custom-tooltip/tool-help-hover.png) !important;
+}

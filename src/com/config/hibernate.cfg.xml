@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/myway</property>
+        <property name="hibernate.connection.username">domain</property>
+        <property name="hibernate.connection.password">domain</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">true</property>
+
+		<mapping resource="org/hurryapp/quickstart/data/model/Utilisateur.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/Groupe.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/Ressource.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/Device.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/Software.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/Menu.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/config/ConfigDomain.hbm.xml" />
+		<mapping resource="org/hurryapp/quickstart/data/model/config/ConfigParameter.hbm.xml" />
+
+		<mapping resource="org/hurryapp/myfnb/common/data/model/Site.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/common/data/model/Table.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/common/data/model/UniteMesure.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/common/data/model/ModePaiement.hbm.xml" />
+
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/CategorieProduit.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/Produit.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/LigneFicheProduit.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/Article.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/Carte.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/ArticleCarte.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/GroupeSupplement.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/Supplement.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/Inventaire.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/produit/data/model/LigneInventaire.hbm.xml" />
+
+		<mapping resource="org/hurryapp/myfnb/client/data/model/EtatFacture.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/client/data/model/Facture.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/client/data/model/LigneFacture.hbm.xml" />
+
+		<mapping resource="org/hurryapp/myfnb/fournisseur/data/model/ModeCommande.hbm.xml" />
+		<mapping resource="org/hurryapp/myfnb/fournisseur/data/model/Fournisseur.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

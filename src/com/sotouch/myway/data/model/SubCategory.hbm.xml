@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.SubCategory" table="SUB_CATEGORY" lazy="false">
+		<id name="id" column="SUB_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="SUB_NAME" type="string" length="100" not-null="true" />
+		<property name="color" column="SUB_COLOR" type="string" length="10" not-null="false" />
+
+		<many-to-one class="com.sotouch.myway.data.model.Category" name="category">
+			<column name="CAT_ID" />
+		</many-to-one>
+
+        <list name="subCategoryContents" table="SUB_CATEGORY_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="SUB_ID" not-null="false" />
+            <list-index column="SUC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.SubCategoryContent" />
+        </list>
+	</class>
+
+	<query name="select.subCategory.by.category">
+		select c from SubCategory as c where c.category.id = ? order by c.name
+	</query>
+</hibernate-mapping>

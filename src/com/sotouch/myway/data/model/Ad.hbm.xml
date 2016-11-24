@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Ad" table="AD" lazy="false">
+		<id name="id" column="AD_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="AD_NAME" type="string" length="100" not-null="false" />
+		<property name="index" column="AD_INDEX" type="integer" not-null="false" />
+		<many-to-one class="com.sotouch.myway.data.model.Playlist" name="playlist"><column name="PLA_ID" /></many-to-one>
+
+		<property name="fullscreen" column="AD_FULLSCREEN" type="boolean" not-null="false" />
+		<property name="file" column="AD_FILE" type="string" length="255" not-null="false" />
+		<property name="skipAfterNbSec" column="AD_SKIP_AFTER_NB_SEC" type="integer" not-null="false" />
+		<property name="skipAfterAsEvent" column="AD_SKIP_AFTER_AS_EVENT" type="boolean" not-null="false" />
+		<property name="skipAfterComplete" column="AD_SKIP_AFTER_COMPLETE" type="boolean" not-null="false" />
+		<property name="width" column="AD_WIDTH" type="integer" not-null="false" />
+		<property name="height" column="AD_HEIGHT" type="integer" not-null="false" />
+		<property name="linkTo" column="AD_LINK_TO" type="integer" not-null="false" />
+		<property name="url" column="AD_URL" type="string" length="255" not-null="false" />
+		<many-to-one class="com.sotouch.myway.data.model.Item" name="item"><column name="ITE_ID" /></many-to-one>
+		<many-to-one class="com.sotouch.myway.data.model.Event" name="event"><column name="EVE_ID" /></many-to-one>
+		<many-to-one class="com.sotouch.myway.data.model.Promotion" name="promotion"><column name="PRM_ID" /></many-to-one>
+
+		<property name="banner" column="AD_BANNER" type="boolean" not-null="false" />
+		<property name="bannerFile" column="AD_BANNER_FILE" type="string" length="255" not-null="false" />
+		<property name="bannerSkipAfterNbSec" column="AD_BANNER_SKIP_AFTER_NB_SEC" type="integer" not-null="false" />
+		<property name="bannerSkipAfterAsEvent" column="AD_BANNER_SKIP_AFTER_AS_EVENT" type="boolean" not-null="false" />
+		<property name="bannerSkipAfterComplete" column="AD_BANNER_SKIP_AFTER_COMPLETE" type="boolean" not-null="false" />
+		<property name="bannerWidth" column="AD_BANNER_WIDTH" type="integer" not-null="false" />
+		<property name="bannerHeight" column="AD_BANNER_HEIGHT" type="integer" not-null="false" />
+		<property name="bannerLinkTo" column="AD_BANNER_LINK_TO" type="integer" not-null="false" />
+		<property name="bannerUrl" column="AD_BANNER_URL" type="string" length="255" not-null="false" />
+		<many-to-one class="com.sotouch.myway.data.model.Item" name="bannerItem"><column name="ITE_ID_BANNER" /></many-to-one>
+		<many-to-one class="com.sotouch.myway.data.model.Event" name="bannerEvent"><column name="EVE_ID_BANNER" /></many-to-one>
+		<many-to-one class="com.sotouch.myway.data.model.Promotion" name="bannerPromotion"><column name="PRM_ID_BANNER" /></many-to-one>
+	</class>
+
+	<query name="select.ad.by.playlist">
+		select a from Ad as a where a.playlist.id = ? order by a.index
+	</query>
+</hibernate-mapping>

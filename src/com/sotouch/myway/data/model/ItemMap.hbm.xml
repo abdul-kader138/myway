@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.ItemMap" table="ITEM_MAP" lazy="false">
+		<id name="id" column="ITM_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="x" column="ITM_X" type="integer" not-null="true" />
+		<property name="y" column="ITM_Y" type="integer" not-null="true" />
+		<property name="linkId" column="ITM_LINK_ID" type="integer" not-null="false" />
+		<property name="closestIds" column="ITM_CLOSEST_IDS" type="string" length="100" not-null="false" />
+
+		<many-to-one class="com.sotouch.myway.data.model.Item" name="item">
+			<column name="ITE_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Floor" name="floor">
+			<column name="FLO_ID" />
+		</many-to-one>
+	</class>
+
+	<query name="select.itemMap.by.project.and.type">
+		select i from ItemMap as i where i.item.project.id = ? and i.item.itemType.id = ?
+	</query>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Company" table="COMPANY" lazy="false">
+		<id name="id" column="COM_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="idStr" column="COM_ID_STR" type="string" length="15" not-null="true" />
+		<property name="name" column="COM_NAME" type="string" length="50" not-null="true" />
+		<property name="address" column="COM_ADDRESS" type="string" length="200" not-null="false" />
+		<property name="city" column="COM_CITY" type="string" length="50" not-null="false" />
+		<property name="country" column="COM_COUNTRY" type="string" length="50" not-null="false" />
+		<property name="enabled" column="COM_ENABLED" type="boolean" not-null="false" />
+
+        <set name="users" table="UTILISATEUR" lazy="true" cascade="delete">
+            <key column="COM_ID" not-null="false" />
+            <one-to-many class="org.hurryapp.quickstart.data.model.Utilisateur" />
+        </set>
+	</class>
+
+	<query name="select.company.enabled">
+		select c from Company as c where c.enabled = 1
+	</query>
+
+	<query name="select.company.by.idStr">
+		select c from Company as c where c.idStr = ?
+	</query>
+</hibernate-mapping>

@@ -1,0 +1,454 @@
+/**
+ * CAROUSEL : standard configuration
+ **/
+.ha-pad-panel-carousel { 
+	position:relative;
+	overflow:hidden;   /* causes the clipping */
+	display:none; /* component turns it on when first item is rendered */
+}
+				
+.ha-pad-panel-carousel ul.carousel-list { 
+	width:10000000px;
+	position:relative;
+	z-index:1; 
+}
+
+.ha-pad-panel-carousel .carousel-list li { 
+	float:left;
+	list-style:none;
+	overflow:hidden;
+	
+    
+}
+
+.ha-pad-panel-carousel .carousel-vertical li { 
+	margin-bottom:0px;
+
+	/* Fix for extra spacing in IE */
+	float:left;
+    clear:left;  
+	
+	/* Force the LI to respect the HEIGHT specified */
+	overflow:hidden;
+	display:block;
+}
+
+/* For vertical carousel, not set, width defaults to auto */
+/* Note if you explicitly set width to auto, this might cause */
+/* problems with Safari... as in up/down button not working in some examples. */	 
+.ha-pad-panel-carousel ul.carousel-vertical {
+/*	width:auto;*/
+}
+
+.ha-pad-panel-carousel .carousel-clip-region { 
+	overflow:hidden; /* Secret to the clipping */
+	margin:0px auto;
+	position:relative; 
+}
+
+/**
+ * CAROUSEL : custom configuration
+ **/
+.ha-pad-panel-carousel {
+	padding:0px;
+}
+.ha-pad-panel-carousel .carousel-list li { 
+	margin:2px;
+	width:100px;
+}
+
+.ha-pad-panel-carousel .carousel-list li strong { 
+	display:block; 
+}
+
+#prev-arrow { 
+}
+
+#next-arrow { 
+}
+
+/**
+ * PAD ITEMS BUTTONS
+ **/
+.ha-pad-panel-item {
+	cursor: pointer;
+}
+
+.ha-pad-panel-item-large .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.green .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-green-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.green .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-green-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.green .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-green-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.blue .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-blue-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.blue .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-blue-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.blue .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-blue-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.purple .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-purple-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.purple .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-purple-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.purple .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-purple-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.pink .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-pink-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.pink .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-pink-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.pink .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-pink-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.red .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-red-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.red .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-red-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.red .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-red-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.orange .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-orange-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.orange .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-orange-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.orange .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-orange-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large .ha-pressed-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-pressed-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large .ha-pressed-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-pressed-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large .ha-pressed-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-pressed-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-large.ha-over .ha-left {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-over-l.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.ha-over .ha-right {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-over-r.gif) !important;
+	width: 4px;
+	height: 75px;
+}
+.ha-pad-panel-item-large.ha-over .ha-center {
+	background-image: url(../images/pad/buttons-75-2/pad-button-large-over-c.gif) !important;
+	height: 75px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-medium .ha-left {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-l.gif) !important;
+	width: 4px;
+	height: 39px;
+}
+.ha-pad-panel-item-medium .ha-right {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-r.gif) !important;
+	width: 4px;
+	height: 39px;
+}
+.ha-pad-panel-item-medium .ha-center {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-c.gif) !important;
+	height: 39px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-medium .ha-pressed-left {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-pressed-l.gif) !important;
+	width: 4px;
+	height: 39px;
+}
+.ha-pad-panel-item-medium .ha-pressed-right {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-pressed-r.gif) !important;
+	width: 4px;
+	height: 39px;
+}
+.ha-pad-panel-item-medium .ha-pressed-center {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-pressed-c.gif) !important;
+	height: 39px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+.ha-pad-panel-item-medium.ha-over .ha-left {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-over-l.gif) !important;
+	width: 4px;
+	height: 39px;
+}
+.ha-pad-panel-item-medium.ha-over .ha-right {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-over-r.gif) !important;
+	width: 4px;
+	height: 39px;
+}
+.ha-pad-panel-item-medium.ha-over .ha-center {
+	background-image: url(../images/pad/buttons-medium/pad-button-medium-over-c.gif) !important;
+	height: 39px;
+	text-align: center;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+/**
+ * PAD PAGE BUTTONS
+ **/
+.ha-pad-panel-page {
+	cursor: pointer;
+}
+.ha-pad-panel-page .ha-disabled {
+	cursor: default;
+}
+.ha-pad-panel-page .ha-left {
+	background-image: url(../images/pad/pad-page-button-l.gif) !important;
+	width: 4px;
+	height: 40px;
+}
+.ha-pad-panel-page .ha-right {
+	background-image: url(../images/pad/pad-page-button-r.gif) !important;
+	width: 4px;
+	height: 40px;
+}
+.ha-pad-panel-page .ha-center {
+	background-image: url(../images/pad/pad-page-button-c.gif) !important;
+	height: 40px;
+	text-align: center;
+}
+.ha-pad-panel-page .ha-previous {
+	background-image: url(../images/pad/page-previous.png) !important;
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+}
+.ha-pad-panel-page .ha-disabled .ha-previous {
+	background-image: url(../images/pad/page-previous-disabled.png) !important;
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+}
+.ha-pad-panel-page .ha-next {
+	background-image: url(../images/pad/page-next.png) !important;
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+}
+.ha-pad-panel-page .ha-disabled .ha-next {
+	background-image: url(../images/pad/page-next-disabled.png) !important;
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+}
+.ha-pad-panel-page .ha-up {
+	background-image: url(../images/pad/page-up.png) !important;
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+}
+.ha-pad-panel-page .ha-disabled .ha-up {
+	background-image: url(../images/pad/page-up-disabled.png) !important;
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+}
+.ha-pad-panel-page .ha-label {
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+/**
+ * PAD CAROUSEL BUTTONS
+ **/
+.ha-pad-panel-carousel {
+	padding-left: 1px;
+}
+
+.ha-pad-panel-carousel .ha-left {
+	background-image: url(../images/pad/pad-carousel-button-l.gif) !important;
+	width: 5px;
+	height: 40px;
+}
+.ha-pad-panel-carousel .ha-right {
+	background-image: url(../images/pad/pad-carousel-button-r.gif) !important;
+	width: 5px;
+	height: 40px;
+}
+.ha-pad-panel-carousel .ha-center {
+	background-image: url(../images/pad/pad-carousel-button-c.gif) !important;
+	height: 40px;
+	text-align: center;
+	cursor: pointer;
+	color: #15428B;
+	font-weight: bold;
+}
+
+.ha-pad-panel-carousel .ha-selected-left {
+	background-image: url(../images/pad/pad-carousel-button-selected-l.gif) !important;
+	width: 5px;
+	height: 40px;
+}
+.ha-pad-panel-carousel .ha-selected-right {
+	background-image: url(../images/pad/pad-carousel-button-selected-r.gif) !important;
+	width: 5px;
+	height: 40px;
+}
+.ha-pad-panel-carousel .ha-selected-center {
+	background-image: url(../images/pad/pad-carousel-button-selected-c.gif) !important;
+	height: 40px;
+	text-align: center;
+	cursor: pointer;
+	color: #15428B;
+	font-weight: bold;
+}
+
+.ha-pad-panel-carousel .ha-previous {
+	background-image: url(../images/pad/carousel-previous.gif) !important;
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 40px;
+	cursor: pointer;
+}
+.ha-pad-panel-carousel .ha-previous-disabled {
+	background-image: url(../images/pad/carousel-previous-disabled.gif) !important;
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 40px;
+}
+
+.ha-pad-panel-carousel .ha-next {
+	background-image: url(../images/pad/carousel-next.gif) !important;
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 40px;
+	background-position: 35% 80%;
+	cursor: pointer;
+}
+.ha-pad-panel-carousel .ha-next-disabled {
+	background-image: url(../images/pad/carousel-next-disabled.gif) !important;
+	background-repeat: no-repeat;
+	height: 40px;
+	width: 40px;
+}
+
+
+/**
+ * MISC
+ **/
+.pad-article-libelle {
+	text-align: center;
+	font-weight: bold;
+}
+.pad-article-prixVente {
+	text-align: center;
+	font-weight: normal;
+}
+.pad-article-quantite {
+	text-align: center;
+	font-style: italic;
+}
+
+.pad-digit {
+	text-align: center;
+	font-weight: normal;
+	font-size: 16px;
+}
+

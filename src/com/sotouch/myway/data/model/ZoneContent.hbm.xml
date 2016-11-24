@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.ZoneContent" table="ZONE_CONTENT" lazy="false">
+		<id name="id" column="ZOC_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="ZOC_NAME" type="string" length="100" not-null="false" />
+		<property name="index" column="ZOC_INDEX" type="integer" not-null="true" />
+
+		<many-to-one class="com.sotouch.myway.data.model.Zone" name="zone">
+			<column name="ZON_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Language" name="language">
+			<column name="LAN_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

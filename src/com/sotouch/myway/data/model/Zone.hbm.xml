@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Zone" table="ZONE" lazy="false">
+		<id name="id" column="ZON_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="ZON_NAME" type="string" length="100" not-null="true" />
+		<property name="color" column="ZON_COLOR" type="string" length="10" not-null="false" />
+		<property name="transparency" column="ZON_TRANSPARENCY" type="integer" not-null="true" />
+		<property name="image" column="ZON_IMAGE" type="string" length="255" not-null="false" />
+		<property name="itemsInZone" column="ZON_ITEMS_IN_ZONE" type="boolean" not-null="false" />
+		
+		<many-to-one class="com.sotouch.myway.data.model.Building" name="building">
+			<column name="BUI_ID" />
+		</many-to-one>
+
+        <list name="zoneContents" table="ZONE_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="ZON_ID" not-null="false" />
+            <list-index column="ZOC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.ZoneContent" />
+        </list>
+        
+        <set name="items" table="ITEM" lazy="true" cascade="delete">
+            <key column="ZON_ID" not-null="false" />
+            <one-to-many class="com.sotouch.myway.data.model.Item" />
+        </set>
+        
+        <many-to-one class="com.sotouch.myway.data.model.Category" name="category">
+			<column name="CAT_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.SubCategory" name="subCategory">
+			<column name="SUB_ID" />
+		</many-to-one>
+        
+	</class>
+	
+	<query name="select.zone.by.project">
+		select z from Zone as z where z.building.project.id = ? order by z.name
+	</query>
+</hibernate-mapping>

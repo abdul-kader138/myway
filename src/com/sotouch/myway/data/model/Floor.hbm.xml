@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.Floor" table="FLOOR" lazy="false">
+		<id name="id" column="FLO_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="name" column="FLO_NAME" type="string" length="100" not-null="true" />
+		<property name="label" column="FLO_LABEL" type="string" length="2" not-null="true" />
+		<property name="image" column="FLO_IMAGE" type="string" length="255" not-null="false" />
+		<property name="index" column="FLO_INDEX" type="integer" not-null="true" />
+
+		<list name="floorContents" table="FLOOR_CONTENT" lazy="false" inverse="true" cascade="all">
+            <key column="FLO_ID" not-null="false" />
+            <list-index column="FLC_INDEX"/>
+            <one-to-many class="com.sotouch.myway.data.model.FloorContent" />
+        </list>
+        
+		<many-to-one class="com.sotouch.myway.data.model.Building" name="building">
+			<column name="BUI_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

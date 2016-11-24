@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sotouch.myway.data.model.FloorContent" table="FLOOR_CONTENT" lazy="false">
+		<id name="id" column="FLC_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="index" column="FLC_INDEX" type="integer" not-null="true" />
+		<property name="name" column="FLC_NAME" type="string" length="255" not-null="false" />
+		<property name="label" column="FLC_LABEL" type="string" length="255" not-null="false" />
+
+		<many-to-one class="com.sotouch.myway.data.model.Floor" name="floor">
+			<column name="FLO_ID" />
+		</many-to-one>
+
+		<many-to-one class="com.sotouch.myway.data.model.Language" name="language">
+			<column name="LAN_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

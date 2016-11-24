@@ -1,0 +1,128 @@
+/* application specific styles */
+
+
+.ux-flag-ae {
+	background-image:url(../../../images/flags/ae.png) !important;
+}
+.ux-flag-bh {
+	background-image:url(../../../images/flags/bh.png) !important;
+}
+.ux-flag-br {
+	background-image:url(../../../images/flags/br.png) !important;
+}
+.ux-flag-cn {
+	background-image:url(../../../images/flags/cn.png) !important;
+}
+.ux-flag-com {
+	background-image:url(../../../images/flags/com.png) !important;
+}
+.ux-flag-de {
+	background-image:url(../../../images/flags/de.png) !important;
+}
+.ux-flag-dji {
+	background-image:url(../../../images/flags/dji.png) !important;
+}
+.ux-flag-dz {
+	background-image:url(../../../images/flags/dz.png) !important;
+}
+.ux-flag-es {
+	background-image:url(../../../images/flags/es.png) !important;
+}
+.ux-flag-eh {
+	background-image:url(../../../images/flags/eh.png) !important;
+}
+.ux-flag-eg {
+	background-image:url(../../../images/flags/eg.png) !important;
+}
+.ux-flag-fr {
+	background-image:url(../../../images/flags/fr.png) !important;
+}
+.ux-flag-gb {
+	background-image:url(../../../images/flags/gb.png) !important;
+}
+.ux-flag-it {
+	background-image:url(../../../images/flags/it.png) !important;
+}
+.ux-flag-iq {
+	background-image:url(../../../images/flags/iq.png) !important;
+}
+.ux-flag-jo {
+	background-image:url(../../../images/flags/jo.png) !important;
+}
+.ux-flag-kw {
+	background-image:url(../../../images/flags/kw.png) !important;
+}
+.ux-flag-lb {
+	background-image:url(../../../images/flags/lb.png) !important;
+}
+.ux-flag-ly {
+	background-image:url(../../../images/flags/ly.png) !important;
+}
+.ux-flag-ma {
+	background-image:url(../../../images/flags/ma.png) !important;
+}
+.ux-flag-mrt {
+	background-image:url(../../../images/flags/mrt.png) !important;
+}
+.ux-flag-nl {
+	background-image:url(../../../images/flags/nl.png) !important;
+}
+.ux-flag-om {
+	background-image:url(../../../images/flags/om.png) !important;
+}
+.ux-flag-ps {
+	background-image:url(../../../images/flags/ps.png) !important;
+}
+.ux-flag-qa {
+	background-image:url(../../../images/flags/qa.png) !important;
+}
+.ux-flag-sa {
+	background-image:url(../../../images/flags/sa.png) !important;
+}
+.ux-flag-so {
+	background-image:url(../../../images/flags/so.png) !important;
+}
+.ux-flag-sd {
+	background-image:url(../../../images/flags/sd.png) !important;
+}
+.ux-flag-sud {
+	background-image:url(../../../images/flags/sud.png) !important;
+}
+.ux-flag-sy {
+	background-image:url(../../../images/flags/sy.png) !important;
+}
+.ux-flag-tn {
+	background-image:url(../../../images/flags/tn.png) !important;
+}
+.ux-flag-ye {
+	background-image:url(../../../images/flags/ye.png) !important;
+}
+.ux-flag-tr {
+	background-image:url(../../../images/flags/tr.png) !important;
+}
+.ux-flag-ru {
+	background-image:url(../../../images/flags/ru.png) !important;
+}
+.ux-flag-us {
+	background-image:url(../../../images/flags/us.png) !important;
+}
+
+/* Ext.ux.IconCombo mandatory styles */
+.x-icon-combo-icon {
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    width: 18px;
+    height: 14px;
+}
+.x-icon-combo-input {
+    padding-left: 25px;
+}
+.x-form-field-wrap .x-icon-combo-icon {
+    top: 3px;
+    left: 5px;
+}
+.x-icon-combo-item {
+    background-repeat: no-repeat !important;
+    background-position: 3px 50% !important;
+    padding-left: 24px;
+}

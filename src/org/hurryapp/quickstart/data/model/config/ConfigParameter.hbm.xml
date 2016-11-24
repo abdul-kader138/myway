@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.hurryapp.quickstart.data.model.config.ConfigParameter" table="CONFIG_PARAMETER" lazy="false">
+
+		<id name="id" column="PRM_ID" type="integer">
+			<generator class="increment" />
+		</id>
+
+		<property name="libelle" column="PRM_LIBELLE" type="string" length="100" />
+
+		<property name="valeur" column="PRM_VALUE" type="string" length="300" />
+
+		<property name="type" column="PRM_TYPE" type="string" length="20" />
+
+		<many-to-one
+			name="domain"
+			column="DOM_ID"
+			class="org.hurryapp.quickstart.data.model.config.ConfigDomain"
+			cascade="none"
+			not-null="true">
+		</many-to-one>
+		
+	</class>
+
+	<query name="select.configParameter.by.domain.and.libelle">
+		select p from ConfigParameter as p where p.domain.libelle = ? and p.libelle = ?
+	</query>
+</hibernate-mapping>
