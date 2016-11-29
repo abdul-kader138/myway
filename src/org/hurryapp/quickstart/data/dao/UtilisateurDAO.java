@@ -12,7 +12,6 @@ public class UtilisateurDAO extends BaseDAO<Utilisateur> {
 	}
 
 	public Utilisateur findByLogin(String login) {
-		Utilisateur ut=(Utilisateur) super.findUniqueResultByNamedQuery("select.utilisateur.by.login", new Object[] {login});
 		return (Utilisateur) super.findUniqueResultByNamedQuery("select.utilisateur.by.login", new Object[] {login});
 	}
 

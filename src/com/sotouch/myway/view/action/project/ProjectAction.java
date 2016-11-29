@@ -104,13 +104,15 @@ public class ProjectAction extends BaseCrudAction<ProjectViewBean> {
 	private Long nbNewsletterEmails;
 	
 	private String fileType;
+	private static int projectId=8;
 	
 	@Override
 	public String init() throws Exception {
 		// Init
 		this.doInit();
+
 		
-		if (projectId != null) {
+		if (projectId != 0) {
 			Date dateStart = (Date) projectService.findById(projectId).getDateStart();
 			Date dateExpire = (Date) projectService.findById(projectId).getDateExpire();
 			Integer daylength = 86400000;
@@ -129,9 +131,12 @@ public class ProjectAction extends BaseCrudAction<ProjectViewBean> {
 		}
 	}
 
+
+
 	@Override
 	protected void doInit() throws Exception {
 		Utilisateur user = AccessUtil.getUtilisateur(session);
+//		System.out.println(user.get);
 		if (AccessUtil.canAccessGroup(user, Constants.GROUPE_SUPER_ADMIN)) {
 			companys = companyService.findAll();
 		}
