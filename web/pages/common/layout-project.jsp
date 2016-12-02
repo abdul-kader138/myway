@@ -319,7 +319,7 @@
 				<table width="100%">
 					<tr>
 						<td class="ha-project-key">
-							<div id="project-name" class="ha-project"></div>
+							<div id="project-name" class="ha-project"><%=session.getAttribute(com.sotouch.myway.Constants.SESSION_KEY_PROJECT_NAME)%></div>
 							<div>
 							<b><s:text name="project.key.full" />:</b>
 							<span id="projectKey" onclick="selectProjectKey();"><%=session.getAttribute(com.sotouch.myway.Constants.SESSION_KEY_PROJECT_KEY)%></span>

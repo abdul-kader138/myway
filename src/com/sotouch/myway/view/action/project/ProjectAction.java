@@ -104,14 +104,16 @@ public class ProjectAction extends BaseCrudAction<ProjectViewBean> {
 	private Long nbNewsletterEmails;
 	
 	private String fileType;
-	private static int projectId=8;
-	
+
+	private static int projectId;
+
 	@Override
 	public String init() throws Exception {
 		// Init
 		this.doInit();
 
-		
+		// get project Id from session for logged in user
+		projectId=(Integer) session.get(Constants.SESSION_KEY_PROJECT_ID);
 		if (projectId != 0) {
 			Date dateStart = (Date) projectService.findById(projectId).getDateStart();
 			Date dateExpire = (Date) projectService.findById(projectId).getDateExpire();
@@ -131,12 +133,9 @@ public class ProjectAction extends BaseCrudAction<ProjectViewBean> {
 		}
 	}
 
-
-
 	@Override
 	protected void doInit() throws Exception {
 		Utilisateur user = AccessUtil.getUtilisateur(session);
-//		System.out.println(user.get);
 		if (AccessUtil.canAccessGroup(user, Constants.GROUPE_SUPER_ADMIN)) {
 			companys = companyService.findAll();
 		}
@@ -282,7 +281,7 @@ public class ProjectAction extends BaseCrudAction<ProjectViewBean> {
 	@Override
 	public String edit() throws Exception {
 		try {
-			Object entity = this.entityService.findById(this.viewBean.getId());
+			Object entity = entityService.findById(this.viewBean.getId());
 			List<Language> languages = languageService.findByProject((Integer) session.get(Constants.SESSION_KEY_PROJECT_ID));
 			Long nbLanguages = languageService.countByProject(this.viewBean.getId());
 			Long nbLicenses = licenseService.countByProject(this.viewBean.getId());
