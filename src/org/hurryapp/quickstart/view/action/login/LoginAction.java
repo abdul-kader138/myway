@@ -3,9 +3,11 @@ package org.hurryapp.quickstart.view.action.login;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import com.sotouch.myway.data.model.Project;
 import org.hurryapp.fwk.annotation.Unsecured;
 import org.hurryapp.fwk.util.StringUtil;
 import org.hurryapp.fwk.view.action.BaseAction;
@@ -66,16 +68,18 @@ public class LoginAction extends BaseAction<LoginViewBean> {
 			AccessUtil.setUtilisateur(this.session, user);
 
 			// Mise en session des projets de l'utilisateur
-			/*
+//			/*// set project Id to session for logged in user
 			Set<Project> userProjects = user.getProjects();
 			if (userProjects != null && userProjects.size() > 0) {
 				this.session.put(com.sotouch.myway.Constants.SESSION_KEY_PROJECT_ID, ((Project) userProjects.toArray()[0]).getId());
+				this.session.put(com.sotouch.myway.Constants.SESSION_KEY_PROJECT_KEY, ((Project) userProjects.toArray()[0]).getKey());
+				this.session.put(com.sotouch.myway.Constants.SESSION_KEY_PROJECT_NAME, ((Project) userProjects.toArray()[0]).getName());
 			}
 			else {
 				this.session.put(com.sotouch.myway.Constants.SESSION_KEY_PROJECT_ID, -1);
 			}
 			this.session.put(com.sotouch.myway.Constants.SESSION_KEY_PROJECTS, userProjects);
-			*/
+//			*/
 
 			// Nettoyage du menu en session
 			this.session.put(Constants.SESSION_KEY_MENU, null);
